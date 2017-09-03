@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.concretepage.entity.Availabilities" table="availabilities" schema="moltressdb">
+        <id name="id">
+            <column name="ID" sql-type="int(11)"/>
+        </id>
+        <property name="startDate">
+            <column name="startDate" sql-type="date" not-null="true"/>
+        </property>
+        <property name="endDate">
+            <column name="endDate" sql-type="date" not-null="true"/>
+        </property>
+        <property name="estateId">
+            <column name="estateID" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="price" sql-type="float" precision="-1" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

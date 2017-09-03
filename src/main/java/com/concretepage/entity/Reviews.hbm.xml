@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.concretepage.entity.Reviews" table="reviews" schema="moltressdb">
+        <id name="id">
+            <column name="ID" sql-type="int(11)"/>
+        </id>
+        <property name="userId">
+            <column name="userID" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="estateId">
+            <column name="estateID" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="rating">
+            <column name="rating" sql-type="float" precision="-1" not-null="true"/>
+        </property>
+        <property name="description">
+            <column name="description" sql-type="longtext" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

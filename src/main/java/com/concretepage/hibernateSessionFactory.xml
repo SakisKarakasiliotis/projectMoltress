@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/moltressDB</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="com.concretepage.entity.Assets"/>
+        <mapping resource="com/concretepage/entity/Assets.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Availabilities"/>
+        <mapping resource="com/concretepage/entity/Availabilities.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Bookings"/>
+        <mapping resource="com/concretepage/entity/Bookings.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Estates"/>
+        <mapping resource="com/concretepage/entity/Estates.hbm.xml"/>
+        <mapping resource="com/concretepage/entity/Reviews.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Reviews"/>
+        <mapping class="com.concretepage.entity.Usergroup"/>
+        <mapping resource="com/concretepage/entity/Usergroup.hbm.xml"/>
+        <mapping class="com.concretepage.entity.User"/>
+        <mapping resource="com/concretepage/entity/User.hbm.xml"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
