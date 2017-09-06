@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Estates {
+@Table(name = "estates")
+public class Estate {
     private int id;
     private Integer ownerId;
     private Double size;
@@ -16,6 +17,7 @@ public class Estates {
     private String city;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
