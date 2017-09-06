@@ -6,12 +6,12 @@
     <session-factory>
         <property name="connection.url">jdbc:mysql://localhost:3306/moltressDB</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <mapping class="com.concretepage.entity.Assets"/>
-        <mapping resource="com/concretepage/entity/Assets.hbm.xml"/>
-        <mapping class="com.concretepage.entity.Availabilities"/>
-        <mapping resource="com/concretepage/entity/Availabilities.hbm.xml"/>
-        <mapping class="com.concretepage.entity.Bookings"/>
-        <mapping resource="com/concretepage/entity/Bookings.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Asset"/>
+        <mapping resource="com/concretepage/entity/Asset.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Availability"/>
+        <mapping resource="com/concretepage/entity/Availability.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Booking"/>
+        <mapping resource="com/concretepage/entity/Booking.hbm.xml"/>
         <mapping class="com.concretepage.entity.Estates"/>
         <mapping resource="com/concretepage/entity/Estates.hbm.xml"/>
         <mapping resource="com/concretepage/entity/Reviews.hbm.xml"/>
@@ -20,6 +20,7 @@
         <mapping resource="com/concretepage/entity/Usergroup.hbm.xml"/>
         <mapping class="com.concretepage.entity.User"/>
         <mapping resource="com/concretepage/entity/User.hbm.xml"/>
+        <mapping class="com.concretepage.entity.Availability"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

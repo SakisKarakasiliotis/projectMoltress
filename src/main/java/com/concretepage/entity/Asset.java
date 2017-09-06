@@ -1,12 +1,10 @@
 package com.concretepage.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Assets {
+@Table(name = "assets")
+public class Asset {
     private int id;
     private String uri;
     private String type;
@@ -15,6 +13,7 @@ public class Assets {
     private String description;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
@@ -79,14 +78,14 @@ public class Assets {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Assets assets = (Assets) o;
+        Asset asset = (Asset) o;
 
-        if (id != assets.id) return false;
-        if (uri != null ? !uri.equals(assets.uri) : assets.uri != null) return false;
-        if (type != null ? !type.equals(assets.type) : assets.type != null) return false;
-        if (name != null ? !name.equals(assets.name) : assets.name != null) return false;
-        if (itemId != null ? !itemId.equals(assets.itemId) : assets.itemId != null) return false;
-        if (description != null ? !description.equals(assets.description) : assets.description != null) return false;
+        if (id != asset.id) return false;
+        if (uri != null ? !uri.equals(asset.uri) : asset.uri != null) return false;
+        if (type != null ? !type.equals(asset.type) : asset.type != null) return false;
+        if (name != null ? !name.equals(asset.name) : asset.name != null) return false;
+        if (itemId != null ? !itemId.equals(asset.itemId) : asset.itemId != null) return false;
+        if (description != null ? !description.equals(asset.description) : asset.description != null) return false;
 
         return true;
     }

@@ -7,15 +7,16 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Availabilities {
+public class Availability {
     private int id;
     private Date startDate;
     private Date endDate;
     private Integer estateId;
     private Double price;
+    private Byte available;
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -25,7 +26,7 @@ public class Availabilities {
     }
 
     @Basic
-    @Column(name = "startDate", nullable = true)
+    @Column(name = "start_date")
     public Date getStartDate() {
         return startDate;
     }
@@ -35,7 +36,7 @@ public class Availabilities {
     }
 
     @Basic
-    @Column(name = "endDate", nullable = true)
+    @Column(name = "end_date")
     public Date getEndDate() {
         return endDate;
     }
@@ -45,7 +46,7 @@ public class Availabilities {
     }
 
     @Basic
-    @Column(name = "estateID", nullable = true)
+    @Column(name = "estate_ID")
     public Integer getEstateId() {
         return estateId;
     }
@@ -55,7 +56,7 @@ public class Availabilities {
     }
 
     @Basic
-    @Column(name = "price", nullable = true, precision = 0)
+    @Column(name = "price")
     public Double getPrice() {
         return price;
     }
@@ -64,18 +65,29 @@ public class Availabilities {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "available")
+    public Byte getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Byte available) {
+        this.available = available;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Availabilities that = (Availabilities) o;
+        Availability that = (Availability) o;
 
         if (id != that.id) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
         if (estateId != null ? !estateId.equals(that.estateId) : that.estateId != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (available != null ? !available.equals(that.available) : that.available != null) return false;
 
         return true;
     }
@@ -87,6 +99,7 @@ public class Availabilities {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (estateId != null ? estateId.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (available != null ? available.hashCode() : 0);
         return result;
     }
 }

@@ -4,21 +4,24 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.concretepage.entity.Availabilities" table="availabilities" schema="moltressdb">
+    <class name="com.concretepage.entity.Availability" table="availabilities" schema="moltressdb">
         <id name="id">
             <column name="ID" sql-type="int(11)"/>
         </id>
         <property name="startDate">
-            <column name="startDate" sql-type="date" not-null="true"/>
+            <column name="start_date" sql-type="date" not-null="true"/>
         </property>
         <property name="endDate">
-            <column name="endDate" sql-type="date" not-null="true"/>
+            <column name="end_date" sql-type="date" not-null="true"/>
         </property>
         <property name="estateId">
-            <column name="estateID" sql-type="int(11)" not-null="true"/>
+            <column name="estate_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="price">
             <column name="price" sql-type="float" precision="-1" not-null="true"/>
+        </property>
+        <property name="price">
+            <column name="available" sql-type="int(1)" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

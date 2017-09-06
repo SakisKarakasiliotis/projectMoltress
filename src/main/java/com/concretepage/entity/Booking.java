@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
-public class Bookings {
+public class Booking {
     private int id;
     private Integer estateId;
     private Date startDate;
@@ -80,7 +80,7 @@ public class Bookings {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Bookings bookings = (Bookings) o;
+        Booking bookings = (Booking) o;
 
         if (id != bookings.id) return false;
         if (estateId != null ? !estateId.equals(bookings.estateId) : bookings.estateId != null) return false;

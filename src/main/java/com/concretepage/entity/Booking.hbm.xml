@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.concretepage.entity.Bookings" table="bookings" schema="moltressdb">
+    <class name="com.concretepage.entity.Booking" table="bookings" schema="moltressdb">
         <id name="id">
             <column name="ID" sql-type="int(11)"/>
         </id>
