@@ -14,16 +14,16 @@ import com.concretepage.entity.Estate;
 @Repository
 public class EstateDAO implements IEstateDAO {
     @PersistenceContext
-    private EstateManager estateManager;
+    private EntityManager entityManager;
 
     @Override
     public Estate getEstateById(int estateId) {
-        return estateManager.find(Estate.class, estateId);
+        return entityManager.find(Estate.class, estateId);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Estate> getAllEstate() {
+    public List<Estate> getAllEstates() {
         String hql = "FROM Estate as estt ORDER BY estt.id";
         return (List<Estate>) entityManager.createQuery(hql).getResultList();
     }
@@ -65,6 +65,5 @@ public class EstateDAO implements IEstateDAO {
         entityManager.remove(getEstateById(estateId));
     }
 
-    @Override
     //here was the exists method may it rests in peace...
 }
