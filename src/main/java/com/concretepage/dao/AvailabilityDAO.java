@@ -62,18 +62,13 @@ public class AvailabilityDAO implements IAvailabilityDAO {
         entityManager.remove(getAvailabilityById(availabilityId));
     }
 
-    //TODO: needs datespan intersection
+    //Proper way to check of intersection of dates https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
     @Override
     public boolean availabilityExists(Date start, Date end) {
-        String hql =
-                "FROM Availability as avlb WHERE " +
-                        "(avlb.startDate <= ? AND avlb.endDate >= ?) OR " +
-                        "(avlb.startDate <= ? AND avlb.endDate >= ?) OR " +
-                        "(avlb.startDate >= ? AND avlb.endDate <= ?)";
+        String hql = "FROM Availability as avlb WHERE " +
+                "(avlb.startDate <= ? AND avlb.endDate >= ?)";
         int count = entityManager.createQuery(hql)
-                .setParameter(1, start).setParameter(2, start)
-                .setParameter(3, end).setParameter(4, end)
-                .setParameter(5, start).setParameter(6, end)
+                .setParameter(1, end).setParameter(2, start)
                 .getResultList().size();
         return count > 0 ? true : false;
     }
