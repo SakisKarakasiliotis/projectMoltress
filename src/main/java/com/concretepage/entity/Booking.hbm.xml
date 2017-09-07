@@ -9,19 +9,19 @@
             <column name="ID" sql-type="int(11)"/>
         </id>
         <property name="estateId">
-            <column name="estateID" sql-type="int(11)" not-null="true"/>
+            <column name="estate_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="startDate">
-            <column name="startDate" sql-type="date" not-null="true"/>
+            <column name="start_date" sql-type="date" not-null="true"/>
         </property>
         <property name="endDate">
-            <column name="endDate" sql-type="date" not-null="true"/>
+            <column name="end_date" sql-type="date" not-null="true"/>
         </property>
         <property name="visitorId">
-            <column name="visitorID" sql-type="int(11)" not-null="true"/>
+            <column name="visitor_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="totalPrice">
-            <column name="totalPrice" sql-type="float" precision="-1" not-null="true"/>
+            <column name="total_price" sql-type="float" precision="-1" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

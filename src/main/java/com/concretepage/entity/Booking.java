@@ -26,7 +26,7 @@ public class Booking {
     }
 
     @Basic
-    @Column(name = "estateID", nullable = true)
+    @Column(name = "estate_ID", nullable = true)
     public Integer getEstateId() {
         return estateId;
     }
@@ -36,7 +36,7 @@ public class Booking {
     }
 
     @Basic
-    @Column(name = "startDate", nullable = true)
+    @Column(name = "start_date", nullable = true)
     public Date getStartDate() {
         return startDate;
     }
@@ -46,7 +46,7 @@ public class Booking {
     }
 
     @Basic
-    @Column(name = "endDate", nullable = true)
+    @Column(name = "end_date", nullable = true)
     public Date getEndDate() {
         return endDate;
     }
@@ -56,7 +56,7 @@ public class Booking {
     }
 
     @Basic
-    @Column(name = "visitorID", nullable = true)
+    @Column(name = "visitor_ID", nullable = true)
     public Integer getVisitorId() {
         return visitorId;
     }
@@ -66,7 +66,7 @@ public class Booking {
     }
 
     @Basic
-    @Column(name = "totalPrice", nullable = true, precision = 0)
+    @Column(name = "total_price", nullable = true, precision = 0)
     public Double getTotalPrice() {
         return totalPrice;
     }
