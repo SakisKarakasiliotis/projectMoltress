@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,8 @@ public class UserDAO implements IUserDAO {
 
     @Override
     public void addUser(User user) {
+        user.setSalt(BCrypt.gensalt());
+        user.setPassword(BCrypt.hashpw(user.getPassword(), user.getSalt()));
         entityManager.persist(user);
     }
 

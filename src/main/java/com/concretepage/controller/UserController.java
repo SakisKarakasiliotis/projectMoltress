@@ -64,11 +64,13 @@ public class UserController {
     @PostMapping("user/login")
     public ResponseEntity<User> loginUser( String email,  String password){
         User usr = userService.getUserByEmail(email);
-
-        if(usr.getPassword().equals(password)){
+        if (BCrypt.checkpw(password, usr.getPassword())) {
             return new ResponseEntity<>(usr, HttpStatus.OK);
         }
-        return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+        else{
+            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+        }
+
     }
 
 }

@@ -21,6 +21,8 @@ public class User {
     private Integer userGroupId;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String salt;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,6 +85,16 @@ public class User {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "salt", nullable = true, length = 256)
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,6 +108,7 @@ public class User {
         if (phoneNo != null ? !phoneNo.equals(users.phoneNo) : users.phoneNo != null) return false;
         if (userGroupId != null ? !userGroupId.equals(users.userGroupId) : users.userGroupId != null) return false;
         if (password != null ? !password.equals(users.password) : users.password != null) return false;
+        if (salt != null ? !salt.equals(users.salt) : users.salt != null) return false;
 
         return true;
     }
@@ -108,6 +121,7 @@ public class User {
         result = 31 * result + (phoneNo != null ? phoneNo.hashCode() : 0);
         result = 31 * result + (userGroupId != null ? userGroupId.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (salt != null ? salt.hashCode() : 0);
         return result;
     }
 }
