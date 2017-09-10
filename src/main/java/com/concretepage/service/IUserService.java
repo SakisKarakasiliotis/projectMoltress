@@ -8,6 +8,8 @@ public interface IUserService {
 
     User getUserById(int userId);
 
+    User getUserByEmail(String email);
+
     boolean addUser(User user);
 
     void updateUser(User user);

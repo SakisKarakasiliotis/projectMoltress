@@ -3,6 +3,7 @@ package com.concretepage.controller;
 import java.util.List;
 
 import com.concretepage.entity.Estate;
+import com.concretepage.service.IEstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class EstateController {
     @GetMapping("estate/{id}")
     public ResponseEntity<Estate> getEstateById(@PathVariable("id") Integer id) {
         Estate estate = estateService.getEstateById(id);
-        return new ResponseEntity<Entity>(entity, HttpStatus.OK);
+        return new ResponseEntity<Estate>(estate, HttpStatus.OK);
     }
 
     @GetMapping("estates")
@@ -38,7 +39,7 @@ public class EstateController {
 
     @PostMapping("estate")
     public ResponseEntity<Void> addEstate(@RequestBody Estate estate, UriComponentsBuilder builder) {
-        boolean flag = userService.addEstate(estate);
+        boolean flag = estateService.addEstate(estate);
         if (flag == false) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }

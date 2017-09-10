@@ -22,40 +22,40 @@ import com.concretepage.service.IBookingService;
 @RequestMapping("/")
 public class BookingController {
     @Autowired
-    private IBookingService availabilityService;
+    private IBookingService bookingService;
 
-    @GetMapping("availability/{id}")
+    @GetMapping("booking/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable("id") Integer id) {
-        Booking availability = availabilityService.getBookingById(id);
-        return new ResponseEntity<Booking>(availability, HttpStatus.OK);
+        Booking booking = bookingService.getBookingById(id);
+        return new ResponseEntity<Booking>(booking, HttpStatus.OK);
     }
 
     @GetMapping("bookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
-        List<Booking> list = availabilityService.getAllBookings();
+        List<Booking> list = bookingService.getAllBookings();
         return new ResponseEntity<List<Booking>>(list, HttpStatus.OK);
     }
 
-    @PostMapping("availability")
-    public ResponseEntity<Void> addBooking(@RequestBody Booking availability, UriComponentsBuilder builder) {
-        boolean flag = availabilityService.addBooking(availability);
+    @PostMapping("booking")
+    public ResponseEntity<Void> addBooking(@RequestBody Booking booking, UriComponentsBuilder builder) {
+        boolean flag = bookingService.addBooking(booking );
         if (flag == false) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/availability/{id}").buildAndExpand(availability.getId()).toUri());
+        headers.setLocation(builder.path("/booking/{id}").buildAndExpand(booking.getId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-    @PutMapping("availability")
-    public ResponseEntity<Booking> updateBooking(@RequestBody Booking availability) {
-        availabilityService.updateBooking(availability);
-        return new ResponseEntity<Booking>(availability, HttpStatus.OK);
+    @PutMapping("booking")
+    public ResponseEntity<Booking> updateBooking(@RequestBody Booking booking) {
+        bookingService.updateBooking(booking);
+        return new ResponseEntity<Booking>(booking, HttpStatus.OK);
     }
 
-    @DeleteMapping("availability/{id}")
+    @DeleteMapping("booking/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable("id") Integer id) {
-        availabilityService.deleteBooking(id);
+        bookingService.deleteBooking(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 

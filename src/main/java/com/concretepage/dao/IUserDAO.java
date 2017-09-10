@@ -9,6 +9,8 @@ public interface IUserDAO {
 
     User getUserById(int userId);
 
+    User getUserByEmail(String email);
+
     void addUser(User user);
 
     void updateUser(User user);

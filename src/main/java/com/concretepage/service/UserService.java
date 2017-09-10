@@ -43,4 +43,9 @@ public class UserService implements IUserService {
     public void deleteUser(int userId) {
         userDAO.deleteUser(userId);
     }
+
+    @Override
+    public User getUserByEmail(String email){
+        return userDAO.getUserByEmail(email);
+    }
 }

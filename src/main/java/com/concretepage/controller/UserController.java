@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.mindrot.jbcrypt.*;
 import com.concretepage.service.IUserService;
+
 
 @Controller
 @RequestMapping("/")
@@ -57,6 +59,16 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("user/login")
+    public ResponseEntity<User> loginUser( String email,  String password){
+        User usr = userService.getUserByEmail(email);
+
+        if(usr.getPassword().equals(password)){
+            return new ResponseEntity<>(usr, HttpStatus.OK);
+        }
+        return new ResponseEntity<>( HttpStatus.FORBIDDEN);
     }
 
 }

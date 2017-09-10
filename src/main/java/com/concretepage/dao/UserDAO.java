@@ -67,4 +67,16 @@ public class UserDAO implements IUserDAO {
         int count = entityManager.createQuery(hql).setParameter(1, email).getResultList().size();
         return count > 0 ? true : false;
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User usr = new User();
+        String hql = "FROM User as usr WHERE usr.email = ?";
+        List<User> userList = entityManager.createQuery(hql).setParameter(1, email).getResultList();
+        if (userList.size() > 0) {
+            usr = userList.get(0);
+        }
+        return usr;
+    }
+
 }

@@ -1,9 +1,6 @@
 package com.concretepage.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "estates")
@@ -92,7 +89,7 @@ public class Estate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Estates estates = (Estates) o;
+        Estate estates = (Estate) o;
 
         if (id != estates.id) return false;
         if (ownerId != null ? !ownerId.equals(estates.ownerId) : estates.ownerId != null) return false;
