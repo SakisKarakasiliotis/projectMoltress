@@ -1,0 +1,64 @@
+booking :
+	user input:
+		user selects to book current estate.
+		user has to fill a form.
+	form:
+		requires: start-end date
+				first-last name(auto completed/skipped if user is logged)
+				contact info
+				payment info?
+		user submits form
+		back-end checks availability
+		answer : ok or not ok 
+		if ok: change status of estate to booked?
+		if not-ok: make suggestions?(too much)
+		
+		
+		submit the booking to DB
+		respond to user that booking is completed.
+		
+		
+		
+		
+	availability ---- 1/8 - 30/8 
+		25/8-27/8
+		
+		
+		check if booking is inside availability
+		if yes 
+			check if booking intersects previous booking 
+	
+	navigation (bonus suggestions)
+	search
+	
+	upload new estate
+		fill a form with estate info
+		select availabilities for the estate
+		upload pics of estate
+		submit.
+	my account:
+		private/public :
+			client den 8elei oi alloi na doune ta bookings tou alla 8elei na fenonte ta contact info tou  
+		by type:
+			owner:
+				bookings (who has booked/what estate / what dates):private; rest is public.
+				estates.
+				personal info
+				contact info
+				reviews.
+			client:
+				bookings(what estate/from who/ dates of booking):private; rest is public.
+				personal info
+				contact info
+				suggestions
+				history of transactions
+			admin: admin account is private;
+				info about users
+				info about bookings 
+				info about estates
+				personal info.
+
+SSL ston tomcat how to?				
+kamia me8odos dn exei toString().
+			
+	
