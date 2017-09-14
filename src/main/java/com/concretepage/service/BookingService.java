@@ -43,4 +43,12 @@ public class BookingService implements IBookingService {
     public void deleteBooking(int bookingId) {
         bookingDAO.deleteBooking(bookingId);
     }
+
+   @Override
+    public void bookingExists(Date start,Date end){
+        if(bookingDAO.bookingExists(start,end)){
+            return true;
+        }
+        return false;
+   }
 }

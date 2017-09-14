@@ -3,6 +3,7 @@ package com.concretepage.controller;
 import java.util.List;
 
 import com.concretepage.entity.Booking;
+import com.concretepage.entity.Availability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.concretepage.service.IBookingService;
-
+import com.concretepage.service.IAvailability;
 @Controller
 @RequestMapping("/")
 public class BookingController {
     @Autowired
     private IBookingService bookingService;
+    private IAvailability availabilityService;
 
     @GetMapping("booking/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable("id") Integer id) {
@@ -58,5 +60,15 @@ public class BookingController {
         bookingService.deleteBooking(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
-
+    @PostMapping("booking/book")
+    public ResponseEntity<Void> bookAnEstate(@RequestBody Booking booking, UriComponentsBuilder builder){
+       if(bookingService.bookingExists( booking.getStartDate(),booking.getEndDate())) {
+           return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); //TODO: error codes and response protocol
+       }
+       else if(availabilityService.availabilityExists(booking.getStartDate(),booking.getEndDate())){
+           return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+       }
+       //create the booking entry and push it to DB and then return..
+        return new ResponseEntity<Booking>(booking, HttpStatus.OK);
+    }
 }
