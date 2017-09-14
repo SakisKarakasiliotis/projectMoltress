@@ -8,7 +8,7 @@ booking :
 				contact info
 				payment info?
 		user submits form
-		back-end checks availability
+		back-end checks availability/double check for avail. and no booking intersection.
 		answer : ok or not ok 
 		if ok: change status of estate to booked?
 		if not-ok: make suggestions?(too much)
