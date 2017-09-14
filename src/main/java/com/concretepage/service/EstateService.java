@@ -25,6 +25,11 @@ public class EstateService implements IEstateService {
     }
 
     @Override
+    public List<Estate> getAllEstatesPaged(Integer page) {
+        return estateDAO.getAllEstatesPaged(page);
+    }
+
+    @Override
     public synchronized boolean addEstate(Estate estate) {
             estateDAO.addEstate(estate);
             return true;

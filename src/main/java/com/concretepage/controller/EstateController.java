@@ -37,6 +37,12 @@ public class EstateController {
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
 
+    @GetMapping("estates/{page}")
+    public ResponseEntity<List<Estate>> getAllEstatesPaged(@PathVariable("page") Integer page) {
+        List<Estate> list = estateService.getAllEstatesPaged(page);
+        return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
+    }
+
     @PostMapping("estate")
     public ResponseEntity<Void> addEstate(@RequestBody Estate estate, UriComponentsBuilder builder) {
         boolean flag = estateService.addEstate(estate);

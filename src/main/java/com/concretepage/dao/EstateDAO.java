@@ -27,6 +27,16 @@ public class EstateDAO implements IEstateDAO {
         String hql = "FROM Estate as estt ORDER BY estt.id";
         return (List<Estate>) entityManager.createQuery(hql).getResultList();
     }
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Estate> getAllEstatesPaged(Integer page) {
+        String hql = "FROM Estate as estt ORDER BY estt.id";
+        Integer pageSize = 3;
+        return (List<Estate>) entityManager.createQuery(hql)
+                .setMaxResults(pageSize)
+                .setFirstResult((page-1)*pageSize)
+                .getResultList();
+    }
 
     @Override
     public void addEstate(Estate estate) {

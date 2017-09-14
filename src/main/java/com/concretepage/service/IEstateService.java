@@ -6,6 +6,8 @@ import com.concretepage.entity.Estate;
 public interface IEstateService {
     List<Estate> getAllEstates();
 
+    List<Estate> getAllEstatesPaged(Integer page);
+
     Estate getEstateById(int estateId);
 
     boolean addEstate(Estate estate);

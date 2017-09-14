@@ -78,5 +78,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.mindrot:jbcrypt:0.4" level="project" />
   </component>
 </module>

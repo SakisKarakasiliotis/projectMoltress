@@ -9,6 +9,8 @@ public interface IEstateDAO {
 
     List<Estate> getAllEstates();
 
+    List<Estate> getAllEstatesPaged(Integer page);
+
     Estate getEstateById(int estateId);
 
     void addEstate(Estate estate);
