@@ -1,5 +1,6 @@
 package com.concretepage.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class BookingService implements IBookingService {
         bookingDAO.deleteBooking(bookingId);
     }
 
-   @Override
-    public void bookingExists(Date start,Date end){
+
+    public boolean bookingExists(Date start, Date end){
         if(bookingDAO.bookingExists(start,end)){
             return true;
         }
