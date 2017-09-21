@@ -65,7 +65,7 @@ public class BookingController {
        if(bookingService.bookingExists( booking.getStartDate(),booking.getEndDate())) {
            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); //TODO: error codes and response protocol
        }
-       else if(!availabilityService.availabilityExists(booking.getStartDate(),booking.getEndDate())){
+       else if(!availabilityService.availabilityExists(booking.getStartDate(),booking.getEndDate())){ //TODO:add estate id as first parameter
            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
        }
        //create the booking entry and push it to DB and then return..
