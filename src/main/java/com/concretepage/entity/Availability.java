@@ -1,19 +1,16 @@
 package com.concretepage.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Table(name = "availabilities")
 public class Availability {
     private int id;
     private Date startDate;
     private Date endDate;
     private Integer estateId;
     private Double price;
-    private Byte available;
 
     @Id
     @Column(name = "ID")
@@ -65,15 +62,15 @@ public class Availability {
         this.price = price;
     }
 
-    @Basic
-    @Column(name = "available")
-    public Byte getAvailable() {
-        return available;
-    }
+//    @Basic
+//    @Column(name = "available")
+//    public Byte getAvailable() {
+//        return available;
+//    }
 
-    public void setAvailable(Byte available) {
-        this.available = available;
-    }
+//    public void setAvailable(Byte available) {
+//        this.available = available;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -87,7 +84,7 @@ public class Availability {
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
         if (estateId != null ? !estateId.equals(that.estateId) : that.estateId != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (available != null ? !available.equals(that.available) : that.available != null) return false;
+//        if (available != null ? !available.equals(that.available) : that.available != null) return false;
 
         return true;
     }
@@ -99,7 +96,7 @@ public class Availability {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (estateId != null ? estateId.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (available != null ? available.hashCode() : 0);
+//        result = 31 * result + (available != null ? available.hashCode() : 0);
         return result;
     }
 }

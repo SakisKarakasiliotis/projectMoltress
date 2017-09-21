@@ -26,7 +26,7 @@ public class AvailabilityService implements IAvailabilityService {
 
     @Override
     public synchronized boolean addAvailability(Availability availability) {
-        if (availabilityDAO.availabilityExists(availability.getStartDate(), availability.getEndDate())) {
+        if (availabilityDAO.availabilityExists(availability.getEstateId(), availability.getStartDate(), availability.getEndDate())) {
             return false;
         } else {
             availabilityDAO.addAvailability(availability);

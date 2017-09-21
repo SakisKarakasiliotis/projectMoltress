@@ -1,7 +1,9 @@
 package com.concretepage.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,6 +29,7 @@ public class EstateDAO implements IEstateDAO {
         String hql = "FROM Estate as estt ORDER BY estt.id";
         return (List<Estate>) entityManager.createQuery(hql).getResultList();
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Estate> getAllEstatesPaged(Integer page) {
@@ -34,7 +37,7 @@ public class EstateDAO implements IEstateDAO {
         Integer pageSize = 3;
         return (List<Estate>) entityManager.createQuery(hql)
                 .setMaxResults(pageSize)
-                .setFirstResult((page-1)*pageSize)
+                .setFirstResult((page - 1) * pageSize)
                 .getResultList();
     }
 
@@ -71,9 +74,59 @@ public class EstateDAO implements IEstateDAO {
     }
 
     @Override
-    public void deleteEstate (int estateId) {
+    public void deleteEstate(int estateId) {
         entityManager.remove(getEstateById(estateId));
     }
 
     //here was the exists method may it rests in peace...
+    @Override
+    public List<Estate> searchEstatePaged(String place, String startDate, String endDate) {
+        java.sql.Date sqlStartDate;
+        java.sql.Date sqlEndDate;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+
+        String hql = "FROM Estate AS estt " +
+                ",Availability AS avl " +
+                "WHERE " +
+                "estt.id = avl.estateId ";
+        if (!place.equals("") && place != null) {
+            hql += "AND (estt.country LIKE ? OR estt.city LIKE ?)";
+        }
+        hql += "AND (avl.startDate <= ?)";
+
+        if (startDate != null && !startDate.equals("")  ) {
+            java.util.Date utilDate = new java.util.Date();
+            try {
+                utilDate = formatter.parse(startDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            sqlStartDate = new java.sql.Date(utilDate.getTime());
+        } else {
+            java.util.Date utilDate = new java.util.Date();
+            sqlStartDate = new java.sql.Date(utilDate.getTime());
+        }
+        hql += "AND (avl.endDate >= ?)";
+
+        if (endDate != null && !endDate.equals("") ) {
+            java.util.Date utilDate = new java.util.Date();
+            try {
+                utilDate = formatter.parse(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            sqlEndDate = new java.sql.Date(utilDate.getTime());
+        } else {
+            java.util.Date utilDate = new java.util.Date();
+            sqlEndDate = new java.sql.Date(utilDate.getTime() + (1 * DAY_IN_MS));
+        }
+
+        return (List<Estate>) entityManager.createQuery(hql)
+                .setParameter(1, place)
+                .setParameter(2, place)
+                .setParameter(3, sqlStartDate)
+                .setParameter(4, sqlEndDate)
+                .getResultList();
+    }
 }

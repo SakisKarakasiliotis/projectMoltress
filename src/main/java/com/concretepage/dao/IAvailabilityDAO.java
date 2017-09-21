@@ -16,5 +16,5 @@ public interface IAvailabilityDAO {
 
     void deleteAvailability(int availabilityId);
 
-    boolean availabilityExists(Date start, Date end);
+    boolean availabilityExists(Integer estateId, Date start, Date end);
 }

@@ -44,4 +44,9 @@ public class EstateService implements IEstateService {
     public void deleteEstate(int estateId) {
         estateDAO.deleteEstate(estateId);
     }
+
+    @Override
+    public List<Estate> searchEstatePaged(String place, String startDate, String endDate){
+        return estateDAO.searchEstatePaged(place, startDate, endDate);
+    }
 }

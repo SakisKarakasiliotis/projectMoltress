@@ -66,4 +66,10 @@ public class EstateController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("estate/search")
+    public ResponseEntity<List<Estate>> searchEstatesPaged(String place, String startDate, String endDate){
+        List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate);
+        return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
+    }
+
 }

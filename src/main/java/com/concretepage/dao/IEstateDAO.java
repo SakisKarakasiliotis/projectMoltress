@@ -19,4 +19,6 @@ public interface IEstateDAO {
 
     void deleteEstate(int estateId);
 
+    List<Estate> searchEstatePaged(String place, String startDate, String endDate);
+
 }

@@ -50,9 +50,9 @@ public class AvailabilityDAO implements IAvailabilityDAO {
         if (availability.getEstateId() != null) {
             avlb.setEstateId(availability.getEstateId());
         }
-        if (availability.getAvailable() != null) {
-            avlb.setAvailable(availability.getAvailable());
-        }
+//        if (availability.getAvailable() != null) {
+//            avlb.setAvailable(availability.getAvailable());
+//        }
 
         entityManager.flush();
     }
@@ -64,11 +64,11 @@ public class AvailabilityDAO implements IAvailabilityDAO {
 
     //Proper way to check of intersection of dates https://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
     @Override
-    public boolean availabilityExists(Date start, Date end) {
+    public boolean availabilityExists(Integer estateId, Date start, Date end) {
         String hql = "FROM Availability as avlb WHERE " +
-                "(avlb.startDate <= ? AND avlb.endDate >= ?)";
+                "(avlb.startDate <= ? AND avlb.endDate >= ?) AND estateId = ?";
         int count = entityManager.createQuery(hql)
-                .setParameter(1, end).setParameter(2, start)
+                .setParameter(1, end).setParameter(2, start).setParameter(3, estateId)
                 .getResultList().size();
         return count > 0 ? true : false;
     }

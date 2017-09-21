@@ -15,4 +15,7 @@ public interface IEstateService {
     void updateEstate(Estate estate);
 
     void deleteEstate(int estateId);
+
+    List<Estate> searchEstatePaged(String place, String startDate, String endDate);
+
 }
