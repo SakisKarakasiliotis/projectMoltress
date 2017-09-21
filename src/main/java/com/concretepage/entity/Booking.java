@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
+@Table(name = "bookings")
 public class Booking {
     private int id;
     private Integer estateId;
