@@ -9,7 +9,7 @@ public interface IBookingService {
 
     Booking getBookingById(int assetId);
 
-    boolean addBooking(Booking asset);
+    boolean addBooking(Booking booking);
 
     void updateBooking(Booking asset);
 
