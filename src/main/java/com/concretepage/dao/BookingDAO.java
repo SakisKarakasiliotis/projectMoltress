@@ -62,16 +62,13 @@ public class BookingDAO implements IBookingDAO {
     //TODO: needs datespan intersection
     @Override
     public boolean bookingExists(Date start, Date end) {
-        String hql =
-                "FROM Booking as bkng WHERE " +
-                        "(bkng.startDate <= ? AND bkng.endDate >= ?) OR " +
-                        "(bkng.startDate <= ? AND bkng.endDate >= ?) OR " +
-                        "(bkng.startDate >= ? AND bkng.endDate <= ?)";
+        String hql ="FROM Booking as bkng WHERE " +
+                "(bkng.startDate <= ? AND bkng.endDate >= ?)";
         int count = entityManager.createQuery(hql)
-                .setParameter(1, start).setParameter(2, start)
-                .setParameter(3, end).setParameter(4, end)
-                .setParameter(5, start).setParameter(6, end)
+                .setParameter(1, end).setParameter(2, start)
                 .getResultList().size();
         return count > 0 ? true : false;
+
+
     }
 }

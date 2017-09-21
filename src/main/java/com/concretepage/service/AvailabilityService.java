@@ -43,4 +43,14 @@ public class AvailabilityService implements IAvailabilityService {
     public void deleteAvailability(int availabilityId) {
         availabilityDAO.deleteAvailability(availabilityId);
     }
+
+    @Override
+    public void availabilityExists(Date start,Date end){
+        if(availabilityDAO.availabilityExists(start,end)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

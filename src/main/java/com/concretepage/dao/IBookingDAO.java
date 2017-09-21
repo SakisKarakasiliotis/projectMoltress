@@ -17,4 +17,6 @@ public interface IBookingDAO {
     void deleteBooking(int bookingId);
 
     boolean bookingExists(Date start, Date end);
+
+
 }
