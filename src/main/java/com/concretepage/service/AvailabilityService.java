@@ -47,11 +47,8 @@ public class AvailabilityService implements IAvailabilityService {
 
     @Override
     public boolean availabilityExists(Integer estateId , Date start, Date end){
-        if(availabilityDAO.availabilityExists(estateId ,start,end)){
-            return true;
-        }
-        else{
-            return false;
-        }
+
+        return availabilityDAO.availabilityExists(estateId ,start, end);
+
     }
 }

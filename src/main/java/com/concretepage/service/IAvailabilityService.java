@@ -15,5 +15,5 @@ public interface IAvailabilityService {
 
     void deleteAvailability(int availabilityId);
 
-    boolean availabilityExists(Integer estateId ,java.sql.Date start, java.sql.Date end);
+    boolean availabilityExists(Integer estateId ,Date start, Date end);
 }

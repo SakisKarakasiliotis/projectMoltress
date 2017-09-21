@@ -1,5 +1,7 @@
 package com.concretepage.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.sql.Date;
 
@@ -50,6 +52,9 @@ public class BookingDAO implements IBookingDAO {
         if (booking.getEstateId() != null) {
             bkng.setEstateId(booking.getEstateId());
         }
+        if (booking.getVisitorId() != null) {
+            bkng.setVisitorId(booking.getVisitorId());
+        }
 
         entityManager.flush();
     }
@@ -65,9 +70,10 @@ public class BookingDAO implements IBookingDAO {
         String hql ="FROM Booking as bkng WHERE " +
                 "(bkng.startDate <= ? AND bkng.endDate >= ?)";
         int count = entityManager.createQuery(hql)
-                .setParameter(1, end).setParameter(2, start)
+                .setParameter(1, end)
+                .setParameter(2, start)
                 .getResultList().size();
-        return count > 0 ? true : false;
+        return count > 0;
 
 
     }

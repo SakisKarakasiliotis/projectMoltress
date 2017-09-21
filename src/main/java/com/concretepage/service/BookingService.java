@@ -45,11 +45,10 @@ public class BookingService implements IBookingService {
         bookingDAO.deleteBooking(bookingId);
     }
 
-
+    @Override
     public boolean bookingExists(Date start, Date end){
-        if(bookingDAO.bookingExists(start,end)){
-            return true;
-        }
-        return false;
+        boolean x = bookingDAO.bookingExists(start,end);
+        System.out.println(x);
+        return x;
    }
 }

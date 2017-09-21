@@ -1,10 +1,8 @@
 package com.concretepage.controller;
 
 import java.util.List;
-import java.sql.Date;
 
 import com.concretepage.entity.Booking;
-import com.concretepage.entity.Availability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +24,8 @@ import com.concretepage.service.IAvailabilityService;
 public class BookingController {
     @Autowired
     private IBookingService bookingService;
+
+    @Autowired
     private IAvailabilityService availabilityService;
 
     @GetMapping("booking/{id}")
@@ -65,10 +65,10 @@ public class BookingController {
     @PostMapping("booking/book")
     public ResponseEntity<Void> bookAnEstate(@RequestBody Booking booking, UriComponentsBuilder builder){
        if(bookingService.bookingExists( booking.getStartDate(),booking.getEndDate())) {
-           return new ResponseEntity<Void>(HttpStatus.NO_CONTENT); //TODO: error codes and response protocol
+           return new ResponseEntity<Void>(HttpStatus.CONFLICT); //TODO: error codes and response protocol
        }
        else if(!availabilityService.availabilityExists(booking.getEstateId(), booking.getStartDate(),booking.getEndDate())){
-           return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+           return new ResponseEntity<Void>(HttpStatus.CONFLICT);
        }
        //create the booking entry and push it to DB and then return..
         bookingService.addBooking(booking);

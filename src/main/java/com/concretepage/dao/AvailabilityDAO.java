@@ -70,6 +70,6 @@ public class AvailabilityDAO implements IAvailabilityDAO {
         int count = entityManager.createQuery(hql)
                 .setParameter(1, end).setParameter(2, start).setParameter(3, estateId)
                 .getResultList().size();
-        return count > 0 ? true : false;
+        return count > 0;
     }
 }

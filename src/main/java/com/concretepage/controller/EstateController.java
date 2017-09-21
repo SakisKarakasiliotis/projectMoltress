@@ -46,7 +46,7 @@ public class EstateController {
     @PostMapping("estate")
     public ResponseEntity<Void> addEstate(@RequestBody Estate estate, UriComponentsBuilder builder) {
         boolean flag = estateService.addEstate(estate);
-        if (flag == false) {
+        if (!flag) {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();

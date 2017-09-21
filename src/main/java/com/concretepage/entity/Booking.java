@@ -100,4 +100,16 @@ public class Booking {
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", estateId=" + estateId +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", visitorId=" + visitorId +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }
