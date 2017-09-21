@@ -1,5 +1,6 @@
 package com.concretepage.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class AvailabilityService implements IAvailabilityService {
     }
 
     @Override
-    public void availabilityExists(Date start,Date end){
-        if(availabilityDAO.availabilityExists(start,end)){
+    public boolean availabilityExists(Integer estateId , Date start, Date end){
+        if(availabilityDAO.availabilityExists(estateId ,start,end)){
             return true;
         }
         else{

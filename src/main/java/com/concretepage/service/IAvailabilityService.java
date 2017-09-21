@@ -1,4 +1,5 @@
 package com.concretepage.service;
+import java.sql.Date;
 import java.util.List;
 
 import com.concretepage.entity.Availability;
@@ -13,4 +14,6 @@ public interface IAvailabilityService {
     void updateAvailability(Availability asset);
 
     void deleteAvailability(int availabilityId);
+
+    boolean availabilityExists(Integer estateId ,java.sql.Date start, java.sql.Date end);
 }
