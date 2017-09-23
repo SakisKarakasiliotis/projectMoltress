@@ -14,6 +14,12 @@ public class Availability {
     private Integer estateId;
     private Double price;
     private Byte available;
+    private Byte allowSmoking;
+    private Byte allowPets;
+    private Byte allowParties;
+    private Integer maxPersons;
+    private Integer minDays;
+    private Double extraCostPerPerson;
 
     @Id
     @Column(name = "ID")
@@ -74,6 +80,64 @@ public class Availability {
     public void setAvailable(Byte available) {
         this.available = available;
     }
+
+    @Basic
+    @Column(name = "allow_smoking")
+    public Byte getAllowSmoking() {
+        return allowSmoking;
+    }
+
+    public void setAllowSmoking(Byte allowSmoking) {
+        this.allowSmoking = allowSmoking;
+    }
+
+    @Basic
+    @Column(name = "allow_pets")
+    public Byte getAllowPets() {
+        return allowPets;
+    }
+
+    public void setAllowPets(Byte allowPets) {
+        this.allowPets = allowPets;
+    }
+
+    @Basic
+    @Column(name = "allow_parties")
+    public Byte getAllowParties() {
+        return allowParties;
+    }
+
+    public void setAllowParties(Byte allowParties) {
+        this.allowParties = allowParties;
+    }
+
+    @Basic
+    @Column(name = "max_persons")
+    public Integer getMaxPersons() {
+        return maxPersons;
+    }
+
+    public void setMaxPersons(Integer maxPersons) {
+        this.maxPersons = maxPersons;
+    }
+
+    @Basic
+    @Column(name = "min_days")
+    public Integer getMinDays() {
+        return minDays;
+    }
+
+    public void setMinDays(Integer minDays) {
+        this.minDays = minDays;
+    }
+
+    @Basic
+    @Column(name = "extra_cost_per_person")
+    public Double getExtraCostPerPerson() {
+        return extraCostPerPerson;
+    }
+
+    public void setExtraCostPerPerson(Double extraCostPerPerson) { this.extraCostPerPerson = extraCostPerPerson; }
 
     @Override
     public boolean equals(Object o) {

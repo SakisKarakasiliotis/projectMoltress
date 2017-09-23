@@ -14,6 +14,7 @@ public class Booking {
     private Date endDate;
     private Integer visitorId;
     private Double totalPrice;
+    private Integer persons;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -73,6 +74,16 @@ public class Booking {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    @Basic
+    @Column(name = "persons", nullable = true)
+    public Integer getPersons() {
+        return persons;
+    }
+
+    public void setPersons(Integer persons) {
+        this.persons = persons;
     }
 
     @Override

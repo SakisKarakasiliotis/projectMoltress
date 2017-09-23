@@ -20,8 +20,26 @@
         <property name="price">
             <column name="price" sql-type="float" precision="-1" not-null="true"/>
         </property>
-        <property name="price">
+        <property name="available">
             <column name="available" sql-type="int(1)" not-null="true"/>
+        </property>
+        <property name="allowPets">
+            <column name="allow_pets" sql-type="int(1)" not-null="true"/>
+        </property>
+        <property name="allowParties">
+            <column name="allow_parties" sql-type="int(1)" not-null="true"/>
+        </property>
+        <property name="allowSmoking">
+            <column name="allow_smoking" sql-type="int(1)" not-null="true"/>
+        </property>
+        <property name="maxPersons">
+            <column name="max_persons" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="minDays">
+            <column name="min_days" sql-type="int(11)" not-null="true"/>
+        </property>
+        <property name="extraCostPerPerson">
+            <column name="extra_cost_per_person" sql-type="float" precision="-1" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>
