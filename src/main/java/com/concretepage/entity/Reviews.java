@@ -12,6 +12,7 @@ public class Reviews {
     private Integer estateId;
     private Double rating;
     private String description;
+    private Integer bookingId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -24,7 +25,7 @@ public class Reviews {
     }
 
     @Basic
-    @Column(name = "userID", nullable = true)
+    @Column(name = "user_ID", nullable = true)
     public Integer getUserId() {
         return userId;
     }
@@ -34,7 +35,7 @@ public class Reviews {
     }
 
     @Basic
-    @Column(name = "estateID", nullable = true)
+    @Column(name = "estate_ID", nullable = true)
     public Integer getEstateId() {
         return estateId;
     }
@@ -61,6 +62,16 @@ public class Reviews {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Basic
+    @Column(name = "booking_ID", nullable = true)
+    public Integer getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(Integer bookingId) {
+        this.bookingId = bookingId;
     }
 
     @Override

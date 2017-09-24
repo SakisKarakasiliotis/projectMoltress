@@ -39,7 +39,7 @@ public class Estate {
     }
 
     @Basic
-    @Column(name = "ownerID", nullable = true)
+    @Column(name = "owner_ID", nullable = true)
     public Integer getOwnerId() {
         return ownerId;
     }
@@ -139,7 +139,7 @@ public class Estate {
     }
 
     @Basic
-    @Column(name = "sittingRoom", nullable = true, length = 100)
+    @Column(name = "sitting_room", nullable = true, length = 100)
     public Byte getSittingRoom() { return sittingRoom; }
 
     public void setSittingRoom(Byte sittingRoom) { this.sittingRoom = sittingRoom; }
@@ -165,7 +165,7 @@ public class Estate {
     }
 
     @Basic
-    @Column(name = "airCondition", nullable = true, length = 100)
+    @Column(name = "air_condition", nullable = true, length = 100)
     public Byte getAirCondition() {
         return airCondition;
     }
