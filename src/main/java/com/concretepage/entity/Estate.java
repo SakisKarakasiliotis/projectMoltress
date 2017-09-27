@@ -134,7 +134,7 @@ public class Estate {
         return bathrooms;
     }
 
-    public void setBathroms(Integer bathrooms) {
+    public void setBathrooms(Integer bathrooms) {
         this.bathrooms = bathrooms;
     }
 
@@ -230,7 +230,7 @@ public class Estate {
         return elevator;
     }
 
-    public void setAirElevator(Byte elevator) {
+    public void setElevator(Byte elevator) {
         this.elevator = elevator;
     }
 
