@@ -26,6 +26,7 @@ public class Estate {
     private Integer floor;
     private Integer storeys;
     private Byte elevator;
+    private String title;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -232,6 +233,15 @@ public class Estate {
 
     public void setElevator(Byte elevator) {
         this.elevator = elevator;
+    }
+    @Basic
+    @Column(name = "title")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
