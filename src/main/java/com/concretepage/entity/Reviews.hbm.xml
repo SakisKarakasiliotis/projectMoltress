@@ -9,16 +9,19 @@
             <column name="ID" sql-type="int(11)"/>
         </id>
         <property name="userId">
-            <column name="userID" sql-type="int(11)" not-null="true"/>
+            <column name="user_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="estateId">
-            <column name="estateID" sql-type="int(11)" not-null="true"/>
+            <column name="estate_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="rating">
             <column name="rating" sql-type="float" precision="-1" not-null="true"/>
         </property>
         <property name="description">
             <column name="description" sql-type="longtext" not-null="true"/>
+        </property>
+        <property name="bookingId">
+            <column name="booking_ID" sql-type="int(11)" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

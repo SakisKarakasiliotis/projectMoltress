@@ -9,7 +9,7 @@
             <column name="ID" sql-type="int(11)"/>
         </id>
         <property name="ownerId">
-            <column name="ownerID" sql-type="int(11)" not-null="true"/>
+            <column name="owner_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="size">
             <column name="size" sql-type="float" precision="-1" not-null="true"/>
@@ -25,6 +25,48 @@
         </property>
         <property name="city">
             <column name="city" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="type">
+            <column name="type" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="beds">
+            <column name="beds" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="rooms">
+            <column name="rooms" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="bathrooms">
+            <column name="bathrooms" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="sittingRoom">
+            <column name="sitting_rooms" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="about">
+            <column name="about" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="wifi">
+            <column name="wifi" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="airCondition">
+            <column name="air_condition" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="heating">
+            <column name="heating" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="kitchen">
+            <column name="kitchen" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="parking">
+            <column name="parking" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="floor">
+            <column name="floor" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="storeys">
+            <column name="storeys" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+        <property name="elevator">
+            <column name="elevator" sql-type="varchar(100)" length="100" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

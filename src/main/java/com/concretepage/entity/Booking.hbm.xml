@@ -23,5 +23,8 @@
         <property name="totalPrice">
             <column name="total_price" sql-type="float" precision="-1" not-null="true"/>
         </property>
+        <property name="persons">
+            <column name="persons" sql-type="int(11)" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>
