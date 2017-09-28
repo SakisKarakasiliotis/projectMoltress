@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.concretepage.service.IAssetService;
+@CrossOrigin(origins = "http://localhost:8090", maxAge = 3600)
 
 @Controller
 @RequestMapping("/api")
 public class AssetController {
 
     private final Logger logger = LoggerFactory.getLogger(AssetController.class);
-    private static String UPLOADED_FOLDER = "./uploads/";
-
+    private static String UPLOADED_FOLDER = "./EarthCorD/earthcord/src/assets/";
 
     @Autowired
     private IAssetService assetService;
@@ -99,7 +99,8 @@ public class AssetController {
             byte[] bytes = file.getBytes();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-            Path path = Paths.get(UPLOADED_FOLDER +timestamp.getTime()+ file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            System.out.println(path);
             Files.write(path, bytes);
 
         }

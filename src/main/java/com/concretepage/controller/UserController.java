@@ -8,20 +8,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.mindrot.jbcrypt.*;
 import com.concretepage.service.IUserService;
 
-
+@CrossOrigin(origins = "http://localhost:8090", maxAge = 3600)
 @Controller
-@RequestMapping("/")
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -61,8 +55,8 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("user/login")
-    public ResponseEntity<User> loginUser( String email,  String password){
+    @GetMapping("user/{email}/{password}")
+    public ResponseEntity<User> loginUser( @PathVariable("email") String email, @PathVariable("password") String password){
         User usr = userService.getUserByEmail(email);
         if (BCrypt.checkpw(password, usr.getPassword())) {
             return new ResponseEntity<>(usr, HttpStatus.OK);
