@@ -1,26 +1,34 @@
 package com.concretepage.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import com.concretepage.entity.Asset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.concretepage.service.IAssetService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/api")
 public class AssetController {
+
+    private final Logger logger = LoggerFactory.getLogger(AssetController.class);
+    private static String UPLOADED_FOLDER = "./uploads/";
+
+
     @Autowired
     private IAssetService assetService;
 
@@ -59,4 +67,42 @@ public class AssetController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("upload")
+    @ResponseBody
+    public ResponseEntity<String> uploadFile( @RequestParam("file") MultipartFile uploadfile){
+        logger.debug("Single file upload!");
+
+        if (uploadfile.isEmpty()) {
+            return new ResponseEntity("please select a file!", HttpStatus.OK);
+        }
+
+        try {
+
+            saveUploadedFiles(Arrays.asList(uploadfile));
+
+        } catch (IOException e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity("Successfully uploaded - " +
+                uploadfile.getOriginalFilename(), HttpStatus.OK);
+    }
+
+    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
+
+        for (MultipartFile file : files) {
+
+            if (file.isEmpty()) {
+                continue; //next pls
+            }
+
+            byte[] bytes = file.getBytes();
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+            Path path = Paths.get(UPLOADED_FOLDER +timestamp.getTime()+ file.getOriginalFilename());
+            Files.write(path, bytes);
+
+        }
+
+    }
 }
