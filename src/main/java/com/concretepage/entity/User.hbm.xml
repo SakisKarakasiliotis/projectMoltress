@@ -26,5 +26,8 @@
         <property name="salt">
             <column name="salt" sql-type="varchar(256)"/>
         </property>
+        <property name="to_be_promoted">
+            <column name="to_be_promoted" sql-type="varchar(256)"/>
+        </property>
     </class>
 </hibernate-mapping>

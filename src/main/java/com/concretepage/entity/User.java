@@ -23,6 +23,7 @@ public class User {
     private String password;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String salt;
+    private Byte to_be_promoted;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -93,6 +94,15 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+    @Basic
+    @Column(name = "to_be_promoted", nullable = true, length = 256)
+    public Byte getTo_be_promoted() {
+        return to_be_promoted;
+    }
+
+    public void setTo_be_promoted(Byte to_be_promoted) {
+        this.to_be_promoted = to_be_promoted;
     }
 
     @Override

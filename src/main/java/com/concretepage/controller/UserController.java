@@ -33,14 +33,16 @@ public class UserController {
     }
 
     @PostMapping("user")
-    public ResponseEntity<Void> addUser(@RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<User> addUser(@RequestBody User user, UriComponentsBuilder builder) {
+        user.setUserGroupId(3);
+
         boolean flag = userService.addUser(user);
         if (flag == false) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<User>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
     @PutMapping("user")
@@ -58,7 +60,8 @@ public class UserController {
     @GetMapping("user/{email}/{password}")
     public ResponseEntity<User> loginUser( @PathVariable("email") String email, @PathVariable("password") String password){
         User usr = userService.getUserByEmail(email);
-        if (BCrypt.checkpw(password, usr.getPassword())) {
+
+        if (usr.getPassword()!= null && BCrypt.checkpw(password, usr.getPassword())) {
             return new ResponseEntity<>(usr, HttpStatus.OK);
         }
         else{

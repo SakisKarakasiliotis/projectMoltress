@@ -55,6 +55,9 @@ public class UserDAO implements IUserDAO {
         if (user.getPassword() != null) {
             usr.setPassword(user.getPassword());
         }
+        if (user.getTo_be_promoted() != null) {
+            usr.setTo_be_promoted(user.getTo_be_promoted());
+        }
 
         entityManager.flush();
     }
