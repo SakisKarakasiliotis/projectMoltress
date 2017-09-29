@@ -21,4 +21,6 @@ public interface IEstateDAO {
 
     List<Estate> searchEstatePaged(String place, String startDate, String endDate);
 
+    int getCount();
+
 }

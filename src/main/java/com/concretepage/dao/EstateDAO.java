@@ -129,4 +129,10 @@ public class EstateDAO implements IEstateDAO {
                 .setParameter(4, sqlEndDate)
                 .getResultList();
     }
+
+    @Override
+    public getCount(){
+        String hql = "SELECT COUNT(id) as cnt FROM Estate";
+        return entityManager.createQuery(hql).addScalar("num_results", new IntegerType()).uniqueResult();
+    }
 }
