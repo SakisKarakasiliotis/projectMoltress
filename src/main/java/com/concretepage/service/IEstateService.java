@@ -18,4 +18,6 @@ public interface IEstateService {
 
     List<Estate> searchEstatePaged(String place, String startDate, String endDate);
 
+    int getCount();
+
 }

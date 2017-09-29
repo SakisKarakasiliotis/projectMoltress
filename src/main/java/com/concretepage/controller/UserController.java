@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.mindrot.jbcrypt.*;
 import com.concretepage.service.IUserService;
+import com.concretepage.service.IEstateService;
+import com.concretepage.service.IReviewService;
 
 @CrossOrigin(origins = "http://localhost:8090", maxAge = 3600)
 @Controller
@@ -19,6 +21,8 @@ import com.concretepage.service.IUserService;
 public class UserController {
     @Autowired
     private IUserService userService;
+    private IEstateService estateService;
+    private IReviewService reviewService;
 
     @GetMapping("user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
@@ -67,4 +71,53 @@ public class UserController {
 
     }
 
+    @GetMapping("user/recomend/{id}")
+    public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id){
+        List<User> users = userService.getAllUsers();
+        Integer totalEstates = estateService.getCount(); //needs to be implemented
+        Integer[users.size()][getCount] ratingsVectors;
+        Integer avg = 0;//should have a value but i need to know if value was 0 or not
+
+        for (User usr : users) {
+            List<Review> reviews = reviewService.getAllByUserID(id); //needs to be implemented
+            for (int i=0;i<totalEstates;i++){
+                for (Review r: reviews ) {
+                    if(r.getEstateID()== i){
+                        ratingVector[usr.id][i]=r.getRating();
+                    }
+                }
+                if(ratingVector[i]== null){
+                    ratingVector[i]==avg;
+                }
+            }
+        }
+
+        //we have to cosine similarity the shit out of this
+
+        for(int i=0 ; i< users.size();i++){
+            if(i == id){
+                continue;
+            }
+            double similarity;
+            double dotProduct = 0.0;
+            double normA = 0.0;
+            double normB = 0.0;
+            for (int j = 0; j < totalEstates; j++) {
+                dotProduct += ratingVectors[id][j] * ratingVectors[i][j];
+                normA += Math.pow(ratingVectors[id][j], 2);
+                normB += Math.pow(ratingVectors[i][j], 2);
+            }
+            similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+            if(similarity > 0.7 ){
+                for(int k ; k<totalEstates;k++){
+                    if(ratingVectors[i][k]>6 && ratingVectors[id][k]== 0){
+                        return estateService.getEstateById(k);
+                    }
+                }
+            }
+        }
+
+
+        return estateService.getEstateById(totalEstates-1);
+    }
 }
