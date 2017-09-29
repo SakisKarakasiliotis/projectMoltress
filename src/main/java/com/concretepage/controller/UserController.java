@@ -3,6 +3,7 @@ package com.concretepage.controller;
 import java.util.List;
 
 import com.concretepage.entity.User;
+import com.concretepage.entity.Estate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -78,7 +79,8 @@ public class UserController {
     public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id){
         List<User> users = userService.getAllUsers();
         Integer totalEstates = estateService.getCount(); //needs to be implemented
-        Integer[users.size()][getCount] ratingsVectors;
+
+        Integer[][] ratingsVectors = new Integer[users.size()][totalEstates];
         Integer avg = 0;//should have a value but i need to know if value was 0 or not
 
         for (User usr : users) {
@@ -86,10 +88,10 @@ public class UserController {
             for (int i=0;i<totalEstates;i++){
                 for (Review r: reviews ) {
                     if(r.getEstateID()== i){
-                        ratingVector[usr.id][i]=r.getRating();
+                        ratingsVectors[usr.id][i]=r.getRating();
                     }
                 }
-                if(ratingVector[i]== null){
+                if(ratingVector[i]== null){//todo: MORE FIXES
                     ratingVector[i]==avg;
                 }
             }
@@ -106,21 +108,21 @@ public class UserController {
             double normA = 0.0;
             double normB = 0.0;
             for (int j = 0; j < totalEstates; j++) {
-                dotProduct += ratingVectors[id][j] * ratingVectors[i][j];
-                normA += Math.pow(ratingVectors[id][j], 2);
-                normB += Math.pow(ratingVectors[i][j], 2);
+                dotProduct += ratingsVectors[id][j] * ratingsVectors[i][j];
+                normA += Math.pow(ratingsVectors[id][j], 2);
+                normB += Math.pow(ratingsVectors[i][j], 2);
             }
             similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
             if(similarity > 0.7 ){
                 for(int k ; k<totalEstates;k++){
-                    if(ratingVectors[i][k]>6 && ratingVectors[id][k]== 0){
-                        return estateService.getEstateById(k);
+                    if(ratingsVectors[i][k]>6 && ratingsVectors[id][k]== 0){
+                        return  new ResponseEntity<Estate>(estateService.getEstateById(k),HttpStatus.OK);
                     }
                 }
             }
         }
 
 
-        return estateService.getEstateById(totalEstates-1);
+        return new ResponseEntity<Estate>(estateService.getEstateById(totalEstates-1),HttpStatus.OK);
     }
 }
