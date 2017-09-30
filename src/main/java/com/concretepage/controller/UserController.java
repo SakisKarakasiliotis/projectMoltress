@@ -78,10 +78,12 @@ public class UserController {
     @GetMapping("user/recomend/{id}")
     public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id) {
         List<User> users = userService.getAllUsers();
-        Integer totalEstates = estateService.getCount(); //needs to be implemented
+        Integer totalEstates = estateService.getCount();
 
         Double[][] ratingsVectors = new Double[users.size()][totalEstates];
-        Double avg = 0.0;//should have a value but i need to know if value was 0 or not
+
+        Double avg = reviewService.getAverageRating();
+       // Double avg = 0.0;//should have a value but i need to know if value was 0 or not
 
         for (User usr : users) {
             int usrId = usr.getId();
@@ -90,7 +92,7 @@ public class UserController {
             for (int i = 0; i < totalEstates; i++) {
                 for (Review r : reviews) {
                     if (r.getEstateId() == i) {
-                        ratingsVectors[usrId][i] = r.getRating();
+                        ratingsVectors[usrId][i] = r.getRating() + avg;
                     }
                 }
                 if (ratingsVectors[usrId][i] == null) {
@@ -117,7 +119,7 @@ public class UserController {
             similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
             if (similarity > 0.7) {
                 for (int k = 0; k < totalEstates; k++) {
-                    if (ratingsVectors[i][k] > 6 && ratingsVectors[id][k] == 0) {
+                    if (ratingsVectors[i][k]-avg > 6 && ratingsVectors[id][k]-avg == 0) {
                         return new ResponseEntity<Estate>(estateService.getEstateById(k), HttpStatus.OK);
                     }
                 }
