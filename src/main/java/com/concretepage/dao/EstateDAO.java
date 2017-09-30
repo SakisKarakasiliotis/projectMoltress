@@ -80,7 +80,7 @@ public class EstateDAO implements IEstateDAO {
 
     //here was the exists method may it rests in peace...
     @Override
-    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Boolean wifi,Boolean heating,Boolean aircondition,Boolean kitchen,Boolean parking,Boolean elevator) {
+    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator) {
         java.sql.Date sqlStartDate;
         java.sql.Date sqlEndDate;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -131,32 +131,32 @@ public class EstateDAO implements IEstateDAO {
         }else{
             hql += "AND (estt.price = ? OR 1=1 )";
         }
-        if (wifi) {
+        if (wifi == 1) {
             hql += "AND (estt.wifi = ?)";
         }else{
             hql += "AND (estt.wifi = ? OR 1=1 )";
         }
-        if (heating) {
+        if (heating == 1) {
             hql += "AND (estt.heating = ?)";
         }else{
             hql += "AND (estt.heating = ? OR 1=1 )";
         }
-        if (aircondition) {
+        if (aircondition == 1) {
             hql += "AND (estt.aircondition = ?)";
         }else{
             hql += "AND (estt.aircondition = ? OR 1=1 )";
         }
-        if (kitchen) {
+        if (kitchen == 1) {
             hql += "AND (estt.kitchen = ?)";
         }else{
             hql += "AND (estt.kitchen = ? OR 1=1 )";
         }
-        if (parking) {
+        if (parking == 1) {
             hql += "AND (estt.parking = ?)";
         }else{
             hql += "AND (estt.parking = ? OR 1=1 )";
         }
-        if (elevator) {
+        if (elevator == 1) {
             hql += "AND (estt.elevator = ?)";
         }else{
             hql += "AND (estt.elevator = ? OR 1=1 )";

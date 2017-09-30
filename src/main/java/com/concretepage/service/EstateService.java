@@ -47,7 +47,7 @@ public class EstateService implements IEstateService {
     }
 
     @Override
-    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Boolean wifi,Boolean heating,Boolean aircondition,Boolean kitchen,Boolean parking,Boolean elevator){
+    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator){
         return estateDAO.searchEstatePaged(place, startDate, endDate, type, price, wifi, heating, aircondition, kitchen, parking, elevator);
     }
     @Override
