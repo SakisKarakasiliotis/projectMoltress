@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.concretepage.entity.User;
 import com.concretepage.entity.Estate;
+import com.concretepage.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -63,44 +64,45 @@ public class UserController {
     }
 
     @GetMapping("user/{email}/{password}")
-    public ResponseEntity<User> loginUser( @PathVariable("email") String email, @PathVariable("password") String password){
+    public ResponseEntity<User> loginUser(@PathVariable("email") String email, @PathVariable("password") String password) {
         User usr = userService.getUserByEmail(email);
 
-        if (usr.getPassword()!= null && BCrypt.checkpw(password, usr.getPassword())) {
+        if (usr.getPassword() != null && BCrypt.checkpw(password, usr.getPassword())) {
             return new ResponseEntity<>(usr, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>( HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
     }
 
     @GetMapping("user/recomend/{id}")
-    public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id){
+    public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id) {
         List<User> users = userService.getAllUsers();
         Integer totalEstates = estateService.getCount(); //needs to be implemented
 
-        Integer[][] ratingsVectors = new Integer[users.size()][totalEstates];
-        Integer avg = 0;//should have a value but i need to know if value was 0 or not
+        Double[][] ratingsVectors = new Double[users.size()][totalEstates];
+        Double avg = 0.0;//should have a value but i need to know if value was 0 or not
 
         for (User usr : users) {
-            List<Review> reviews = reviewService.getAllByUserID(id); //needs to be implemented
-            for (int i=0;i<totalEstates;i++){
-                for (Review r: reviews ) {
-                    if(r.getEstateID()== i){
-                        ratingsVectors[usr.id][i]=r.getRating();
+            int usrId = usr.getId();
+            List<Review> reviews = reviewService.getAllByUserID(usrId); //needs to be implemented
+
+            for (int i = 0; i < totalEstates; i++) {
+                for (Review r : reviews) {
+                    if (r.getEstateId() == i) {
+                        ratingsVectors[usrId][i] = r.getRating();
                     }
                 }
-                if(ratingVector[i]== null){//todo: MORE FIXES
-                    ratingVector[i]==avg;
+                if (ratingsVectors[usrId][i] == null) {
+                    ratingsVectors[usrId][i] = avg;
                 }
             }
         }
 
         //we have to cosine similarity the shit out of this
 
-        for(int i=0 ; i< users.size();i++){
-            if(i == id){
+        for (int i = 0; i < users.size(); i++) {
+            if (i == id) {
                 continue;
             }
             double similarity;
@@ -113,16 +115,16 @@ public class UserController {
                 normB += Math.pow(ratingsVectors[i][j], 2);
             }
             similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-            if(similarity > 0.7 ){
-                for(int k ; k<totalEstates;k++){
-                    if(ratingsVectors[i][k]>6 && ratingsVectors[id][k]== 0){
-                        return  new ResponseEntity<Estate>(estateService.getEstateById(k),HttpStatus.OK);
+            if (similarity > 0.7) {
+                for (int k = 0; k < totalEstates; k++) {
+                    if (ratingsVectors[i][k] > 6 && ratingsVectors[id][k] == 0) {
+                        return new ResponseEntity<Estate>(estateService.getEstateById(k), HttpStatus.OK);
                     }
                 }
             }
         }
 
 
-        return new ResponseEntity<Estate>(estateService.getEstateById(totalEstates-1),HttpStatus.OK);
+        return new ResponseEntity<Estate>(estateService.getEstateById(totalEstates - 1), HttpStatus.OK);
     }
 }

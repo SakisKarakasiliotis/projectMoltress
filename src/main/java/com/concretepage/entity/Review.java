@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Reviews {
+public class Review {
     private int id;
     private Integer userId;
     private Integer estateId;
@@ -79,7 +79,7 @@ public class Reviews {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Reviews reviews = (Reviews) o;
+        Review reviews = (Review) o;
 
         if (id != reviews.id) return false;
         if (userId != null ? !userId.equals(reviews.userId) : reviews.userId != null) return false;

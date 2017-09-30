@@ -15,7 +15,7 @@
         <mapping class="com.concretepage.entity.Estates"/>
         <mapping resource="com/concretepage/entity/Estates.hbm.xml"/>
         <mapping resource="com/concretepage/entity/Reviews.hbm.xml"/>
-        <mapping class="com.concretepage.entity.Reviews"/>
+        <mapping class="com.concretepage.entity.Review"/>
         <mapping class="com.concretepage.entity.Usergroup"/>
         <mapping resource="com/concretepage/entity/Usergroup.hbm.xml"/>
         <mapping class="com.concretepage.entity.User"/>

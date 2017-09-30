@@ -131,8 +131,8 @@ public class EstateDAO implements IEstateDAO {
     }
 
     @Override
-    public getCount(){
-        String hql = "SELECT COUNT(id) as cnt FROM Estate";
-        return entityManager.createQuery(hql).addScalar("num_results", new IntegerType()).uniqueResult();
+    public int getCount(){
+        String hql = "FROM Estate as est";
+        return entityManager.createQuery(hql).getResultList().size();
     }
 }
