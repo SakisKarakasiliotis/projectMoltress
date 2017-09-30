@@ -80,7 +80,7 @@ public class EstateDAO implements IEstateDAO {
 
     //here was the exists method may it rests in peace...
     @Override
-    public List<Estate> searchEstatePaged(String place, String startDate, String endDate) {
+    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Boolean wifi,Boolean heating,Boolean aircondition,Boolean kitchen,Boolean parking,Boolean elevator) {
         java.sql.Date sqlStartDate;
         java.sql.Date sqlEndDate;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -121,12 +121,60 @@ public class EstateDAO implements IEstateDAO {
             java.util.Date utilDate = new java.util.Date();
             sqlEndDate = new java.sql.Date(utilDate.getTime() + (1 * DAY_IN_MS));
         }
+        if (!type.equals("") && type != null) {
+            hql += "AND (estt.type = ?)";
+        }else{
+            hql += "AND (estt.type = ? OR 1=1 )";
+        }
+        if (price !=0.0) {
+            hql += "AND (estt.price <= ?)";
+        }else{
+            hql += "AND (estt.price = ? OR 1=1 )";
+        }
+        if (wifi) {
+            hql += "AND (estt.wifi = ?)";
+        }else{
+            hql += "AND (estt.wifi = ? OR 1=1 )";
+        }
+        if (heating) {
+            hql += "AND (estt.heating = ?)";
+        }else{
+            hql += "AND (estt.heating = ? OR 1=1 )";
+        }
+        if (aircondition) {
+            hql += "AND (estt.aircondition = ?)";
+        }else{
+            hql += "AND (estt.aircondition = ? OR 1=1 )";
+        }
+        if (kitchen) {
+            hql += "AND (estt.kitchen = ?)";
+        }else{
+            hql += "AND (estt.kitchen = ? OR 1=1 )";
+        }
+        if (parking) {
+            hql += "AND (estt.parking = ?)";
+        }else{
+            hql += "AND (estt.parking = ? OR 1=1 )";
+        }
+        if (elevator) {
+            hql += "AND (estt.elevator = ?)";
+        }else{
+            hql += "AND (estt.elevator = ? OR 1=1 )";
+        }
 
         return (List<Estate>) entityManager.createQuery(hql)
                 .setParameter(1, place)
                 .setParameter(2, place)
                 .setParameter(3, sqlStartDate)
                 .setParameter(4, sqlEndDate)
+                .setParameter(5, type)
+                .setParameter(6, price)
+                .setParameter(7, wifi)
+                .setParameter(8, heating)
+                .setParameter(9, aircondition)
+                .setParameter(10, kitchen)
+                .setParameter(11, parking)
+                .setParameter(12, elevator)
                 .getResultList();
     }
 

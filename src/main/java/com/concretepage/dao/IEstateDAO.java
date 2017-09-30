@@ -19,7 +19,7 @@ public interface IEstateDAO {
 
     void deleteEstate(int estateId);
 
-    List<Estate> searchEstatePaged(String place, String startDate, String endDate);
+    List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Boolean wifi,Boolean heating,Boolean aircondition,Boolean kitchen,Boolean parking,Boolean elevator);
 
     int getCount();
 
