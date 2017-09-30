@@ -20,4 +20,6 @@ public interface IEstateService {
 
     int getCount();
 
+    List<Estate> getAllByUserID(Integer userId);
+
 }

@@ -53,4 +53,8 @@ public class EstateService implements IEstateService {
     public  int getCount(){
         return estateDAO.getCount();
     }
+    @Override
+    public List<Estate> getAllByUserID(Integer userId){
+        return estateDAO.getAllByUserID(userId);
+    }
 }

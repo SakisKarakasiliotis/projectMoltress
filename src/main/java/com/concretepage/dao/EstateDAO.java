@@ -135,4 +135,10 @@ public class EstateDAO implements IEstateDAO {
         String hql = "FROM Estate as est";
         return entityManager.createQuery(hql).getResultList().size();
     }
+
+    @Override
+    public List<Estate> getAllByUserID(Integer userId) {
+        String hql = "FROM Estate as estt WHERE estt.userId = ?";
+        return entityManager.createQuery(hql).setParameter(1, userId).getResultList();
+    }
 }

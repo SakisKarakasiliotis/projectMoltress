@@ -67,5 +67,9 @@ public class EstateController {
         List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate);
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
-
+    @GetMapping("estate/owner/{id}")
+    public ResponseEntity<List<Estate>> getAllByOwnerID(@PathVariable("id") Integer id){
+        List<Estate> list = estateService.getAllByUserID(id);
+        return new ResponseEntity<List<Estate>>(list , HttpStatus.OK);
+    }
 }
