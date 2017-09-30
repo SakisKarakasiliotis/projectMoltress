@@ -61,10 +61,10 @@ public class EstateController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("estate/search/{place}/{startdate}/{enddate}")
-    public ResponseEntity<List<Estate>> searchEstatesPaged(@PathVariable("place") String place, @PathVariable("startdate") String startDate, @PathVariable("enddate") String endDate){
+    @GetMapping("estate/search/{place}/{startdate}/{enddate}/{type}/{price}/{wifi}/{heating}/{aircondition}/{kitchen}/{parking}/{elevator}")
+    public ResponseEntity<List<Estate>> searchEstatesPaged(@PathVariable("place") String place, @PathVariable("startdate") String startDate, @PathVariable("enddate") String endDate,@PathVariable("type") String type,@PathVariable("price") Float price,@PathVariable("wifi") Boolean wifi,@PathVariable("heating") Boolean heating,@PathVariable("aircondition") Boolean aircondition,@PathVariable("kitchen") Boolean kitchen,@PathVariable("parking") Boolean parking,@PathVariable("elevator") Boolean elevator){
 
-        List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate);
+        List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate,type,price,wifi,heating,aircondition,kitchen,parking,elevator);
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
     @GetMapping("estate/owner/{id}")
