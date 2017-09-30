@@ -2,10 +2,10 @@ package com.concretepage.service;
 
 import java.util.List;
 
-import com.concretepage.dao.IReviewDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.concretepage.dao.IReviewDAO;
 import com.concretepage.entity.Review;
 
 public class ReviewService implements IReviewService {

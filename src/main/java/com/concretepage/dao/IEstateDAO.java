@@ -23,4 +23,6 @@ public interface IEstateDAO {
 
     int getCount();
 
+    List<String> getEstateTypes();
+
 }

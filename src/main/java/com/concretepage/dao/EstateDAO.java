@@ -34,7 +34,7 @@ public class EstateDAO implements IEstateDAO {
     @Override
     public List<Estate> getAllEstatesPaged(Integer page) {
         String hql = "FROM Estate as estt ORDER BY estt.id";
-        Integer pageSize = 3;
+        Integer pageSize = 10;
         return (List<Estate>) entityManager.createQuery(hql)
                 .setMaxResults(pageSize)
                 .setFirstResult((page - 1) * pageSize)
@@ -135,4 +135,12 @@ public class EstateDAO implements IEstateDAO {
         String hql = "FROM Estate as est";
         return entityManager.createQuery(hql).getResultList().size();
     }
+
+    @Override
+    public List<String> getEstateTypes(){
+        String hql = "SELECT DISTINCT(est.type) FROM Estate as est";
+        return entityManager.createQuery(hql).getResultList();
+
+    }
+
 }

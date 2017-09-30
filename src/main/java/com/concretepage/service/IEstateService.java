@@ -20,4 +20,5 @@ public interface IEstateService {
 
     int getCount();
 
+    List<String> getEstateTypes();
 }

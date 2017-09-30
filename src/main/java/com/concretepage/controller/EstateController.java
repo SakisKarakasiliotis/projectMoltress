@@ -67,5 +67,14 @@ public class EstateController {
         List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate);
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
+    @GetMapping("estate/count")
+    public ResponseEntity<Integer> countEstates(){
+
+        return new ResponseEntity<Integer>((estateService.getCount()/10)+1, HttpStatus.OK);
+    }
+    @GetMapping("estate/types")
+    public ResponseEntity<List<String>> getEstateTypes(){
+        return new ResponseEntity<List<String>>(estateService.getEstateTypes(), HttpStatus.OK);
+    }
 
 }
