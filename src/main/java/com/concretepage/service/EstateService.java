@@ -10,6 +10,7 @@ import com.concretepage.entity.Estate;
 
 @Service
 public class EstateService implements IEstateService {
+
     @Autowired
     private IEstateDAO estateDAO;
 

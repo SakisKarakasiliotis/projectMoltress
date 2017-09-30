@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.concretepage.entity.Review;
 
+@Transactional
+@Repository
 public class ReviewDAO implements IReviewDAO {
 
     @PersistenceContext
