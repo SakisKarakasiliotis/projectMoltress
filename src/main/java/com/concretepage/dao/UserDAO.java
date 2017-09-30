@@ -53,7 +53,8 @@ public class UserDAO implements IUserDAO {
             usr.setUserGroupId(user.getUserGroupId());
         }
         if (user.getPassword() != null) {
-            usr.setPassword(user.getPassword());
+            user.setSalt(BCrypt.gensalt());
+            usr.setPassword(BCrypt.hashpw(user.getPassword(), user.getSalt()));
         }
         if (user.getTo_be_promoted() != null) {
             usr.setTo_be_promoted(user.getTo_be_promoted());
