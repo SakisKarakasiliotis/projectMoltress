@@ -16,5 +16,6 @@ public interface IReviewService {
 
     void deleteReview(int reviewId);
 
+    Double getAverageRating();
 
 }

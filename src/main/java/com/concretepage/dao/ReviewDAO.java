@@ -1,8 +1,10 @@
 package com.concretepage.dao;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.concretepage.entity.Review;
 
-public class ReviewDAO implements IReviewDAO{
+public class ReviewDAO implements IReviewDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,7 +30,7 @@ public class ReviewDAO implements IReviewDAO{
     }
 
     @Override
-   public List<Review> getAllByUserID(Integer userId){
+    public List<Review> getAllByUserID(Integer userId) {
         String hql = "FROM Review as rvw WHERE rvw.userId = ?";
         return entityManager.createQuery(hql).setParameter(1, userId).getResultList();
     }
@@ -59,5 +61,13 @@ public class ReviewDAO implements IReviewDAO{
         int count = entityManager.createQuery(hql).setParameter(1, email).getResultList().size();
         return count > 0 ? true : false;
     }
+
+    public Double getAverageRating() {
+        String hql = "SELECT avg(rvw.rating) FROM Review as rvw";
+        Query query = entityManager.createQuery(hql);
+        List list = query.getResultList();
+        return (Double) list.get(0);
+    }
+
 
 }

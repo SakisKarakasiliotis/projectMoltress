@@ -20,4 +20,6 @@ public interface IReviewDAO {
 
     List<Review> getAllByUserID(Integer userId);
 
+    Double getAverageRating();
+
 }

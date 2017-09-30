@@ -17,10 +17,9 @@ public class ReviewService implements IReviewService {
         return reviewDAO.getAllReviews();
     }
 
-    public List<Review> getAllByUserID(Integer userId){
-       return reviewDAO.getAllByUserID(userId);
+    public List<Review> getAllByUserID(Integer userId) {
+        return reviewDAO.getAllByUserID(userId);
     }
-
 
 
     public Review getReviewById(int reviewId) {
@@ -39,4 +38,10 @@ public class ReviewService implements IReviewService {
     public void deleteReview(int reviewId) {
         reviewDAO.deleteReview(reviewId);
     }
+
+    public Double getAverageRating() {
+        System.out.println(reviewDAO.getAverageRating());
+        return 0.0;
+    }
+
 }
