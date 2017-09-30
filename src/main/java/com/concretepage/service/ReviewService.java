@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.concretepage.dao.IReviewDAO;
 import com.concretepage.entity.Review;
-
+@Service
 public class ReviewService implements IReviewService {
 
     @Autowired

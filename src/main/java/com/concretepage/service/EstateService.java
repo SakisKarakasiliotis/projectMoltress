@@ -58,4 +58,8 @@ public class EstateService implements IEstateService {
     public List<String> getEstateTypes(){
         return estateDAO.getEstateTypes();
     }
+    @Override
+    public List<Estate> getAllByUserID(Integer userId){
+        return estateDAO.getAllByUserID(userId);
+    }
 }

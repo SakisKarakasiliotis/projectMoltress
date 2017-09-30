@@ -25,4 +25,6 @@ public interface IEstateDAO {
 
     List<String> getEstateTypes();
 
+    List<Estate> getAllByUserID(Integer userId);
+
 }

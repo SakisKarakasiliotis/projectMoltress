@@ -21,4 +21,6 @@ public interface IEstateService {
     int getCount();
 
     List<String> getEstateTypes();
+    List<Estate> getAllByUserID(Integer userId);
+
 }
