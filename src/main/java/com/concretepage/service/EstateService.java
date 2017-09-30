@@ -47,8 +47,8 @@ public class EstateService implements IEstateService {
     }
 
     @Override
-    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator){
-        return estateDAO.searchEstatePaged(place, startDate, endDate, type, price, wifi, heating, aircondition, kitchen, parking, elevator);
+    public List<Estate> searchEstatePaged(Integer page, String place, String startDate, String endDate,String type,Double price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator){
+        return estateDAO.searchEstatePaged(page, place, startDate, endDate, type, price, wifi, heating, aircondition, kitchen, parking, elevator);
     }
     @Override
     public  int getCount(){

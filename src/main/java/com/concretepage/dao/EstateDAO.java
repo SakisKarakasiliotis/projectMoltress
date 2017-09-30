@@ -80,13 +80,14 @@ public class EstateDAO implements IEstateDAO {
 
     //here was the exists method may it rests in peace...
     @Override
-    public List<Estate> searchEstatePaged(String place, String startDate, String endDate,String type,Float price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator) {
+    public List<Estate> searchEstatePaged(Integer page, String place, String startDate, String endDate,String type,Double price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator) {
         java.sql.Date sqlStartDate;
         java.sql.Date sqlEndDate;
+        Integer pageSize = 10;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         long DAY_IN_MS = 1000 * 60 * 60 * 24;
 
-        String hql = "FROM Estate AS estt " +
+        String hql = " FROM Estate AS estt " +
                 ",Availability AS avl " +
                 "WHERE " +
                 "estt.id = avl.estateId ";
@@ -121,15 +122,15 @@ public class EstateDAO implements IEstateDAO {
             java.util.Date utilDate = new java.util.Date();
             sqlEndDate = new java.sql.Date(utilDate.getTime() + (1 * DAY_IN_MS));
         }
-        if (!type.equals("") && type != null) {
+        if (!type.equals("any") && !type.equals("") && type != null) {
             hql += "AND (estt.type = ?)";
         }else{
             hql += "AND (estt.type = ? OR 1=1 )";
         }
-        if (price !=0.0) {
-            hql += "AND (estt.price <= ?)";
+        if (price != 0.0f) {
+            hql += "AND (avl.price <= ?)";
         }else{
-            hql += "AND (estt.price = ? OR 1=1 )";
+            hql += "AND (avl.price = ? OR 1=1 )";
         }
         if (wifi == 1) {
             hql += "AND (estt.wifi = ?)";
@@ -142,9 +143,9 @@ public class EstateDAO implements IEstateDAO {
             hql += "AND (estt.heating = ? OR 1=1 )";
         }
         if (aircondition == 1) {
-            hql += "AND (estt.aircondition = ?)";
+            hql += "AND (estt.airCondition = ?)";
         }else{
-            hql += "AND (estt.aircondition = ? OR 1=1 )";
+            hql += "AND (estt.airCondition = ? OR 1=1 )";
         }
         if (kitchen == 1) {
             hql += "AND (estt.kitchen = ?)";
@@ -175,6 +176,8 @@ public class EstateDAO implements IEstateDAO {
                 .setParameter(10, kitchen)
                 .setParameter(11, parking)
                 .setParameter(12, elevator)
+                .setMaxResults(pageSize)
+                .setFirstResult((page - 1) * pageSize)
                 .getResultList();
     }
 

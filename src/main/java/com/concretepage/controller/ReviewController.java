@@ -31,6 +31,12 @@ public class ReviewController{
         return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
     }
 
+    @GetMapping("reviews/{userId}")
+    public ResponseEntity<List<Review>> getAllEstatesByUserId(@PathVariable("userId") Integer userId) {
+        List<Review> list = reviewService.getAllByUserID(userId);
+        return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
+    }
+
 //    @GetMapping("review/{page}")
 //    public ResponseEntity<List<Review>> getAllReviewPaged(@PathVariable("page") Integer page) {
 //        List<Review> list = reviewService.getAllReviewsPaged(page);

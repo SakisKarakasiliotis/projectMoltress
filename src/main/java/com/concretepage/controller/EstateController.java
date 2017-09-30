@@ -61,24 +61,27 @@ public class EstateController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("estate/search/{place}/{startdate}/{enddate}/{type}/{price}/{wifi}/{heating}/{aircondition}/{kitchen}/{parking}/{elevator}")
-    public ResponseEntity<List<Estate>> searchEstatesPaged(@PathVariable("place") String place, @PathVariable("startdate") String startDate, @PathVariable("enddate") String endDate,@PathVariable("type") String type,@PathVariable("price") Float price,@PathVariable("wifi") Byte wifi,@PathVariable("heating") Byte heating,@PathVariable("aircondition") Byte aircondition,@PathVariable("kitchen") Byte kitchen,@PathVariable("parking") Byte parking,@PathVariable("elevator") Byte elevator){
+    @GetMapping("estate/search/{page}/{place}/{startdate}/{enddate}/{type}/{price}/{wifi}/{heating}/{aircondition}/{kitchen}/{parking}/{elevator}")
+    public ResponseEntity<List<Estate>> searchEstatesPaged(@PathVariable("page") Integer page, @PathVariable("place") String place, @PathVariable("startdate") String startDate, @PathVariable("enddate") String endDate, @PathVariable("type") String type, @PathVariable("price") Double price, @PathVariable("wifi") Byte wifi, @PathVariable("heating") Byte heating, @PathVariable("aircondition") Byte aircondition, @PathVariable("kitchen") Byte kitchen, @PathVariable("parking") Byte parking, @PathVariable("elevator") Byte elevator) {
 
-        List<Estate> list = estateService.searchEstatePaged(place, startDate, endDate,type,price,wifi,heating,aircondition,kitchen,parking,elevator);
+        List<Estate> list = estateService.searchEstatePaged(page, place, startDate, endDate, type, price, wifi, heating, aircondition, kitchen, parking, elevator);
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
-    @GetMapping("estate/owner/{id}")
-    public ResponseEntity<List<Estate>> getAllByOwnerID(@PathVariable("id") Integer id){
-        List<Estate> list = estateService.getAllByUserID(id);
-        return new ResponseEntity<List<Estate>>(list , HttpStatus.OK);
-    }
-    @GetMapping("estate/count")
-    public ResponseEntity<Integer> countEstates(){
 
-        return new ResponseEntity<Integer>((estateService.getCount()/10)+1, HttpStatus.OK);
+    @GetMapping("estate/owner/{id}")
+    public ResponseEntity<List<Estate>> getAllByOwnerID(@PathVariable("id") Integer id) {
+        List<Estate> list = estateService.getAllByUserID(id);
+        return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
+
+    @GetMapping("estate/count")
+    public ResponseEntity<Integer> countEstates() {
+
+        return new ResponseEntity<Integer>((estateService.getCount() / 10) + 1, HttpStatus.OK);
+    }
+
     @GetMapping("estate/types")
-    public ResponseEntity<List<String>> getEstateTypes(){
+    public ResponseEntity<List<String>> getEstateTypes() {
         return new ResponseEntity<List<String>>(estateService.getEstateTypes(), HttpStatus.OK);
     }
 
