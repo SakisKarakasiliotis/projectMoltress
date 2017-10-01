@@ -33,7 +33,7 @@ public class ReviewDAO implements IReviewDAO {
 
     @Override
     public List<Review> getAllByUserID(Integer userId) {
-        String hql = "FROM Review as rvw WHERE rvw.userId = ?";
+        String hql = "FROM Review as rvw WHERE rvw.estateId = ?";
         return entityManager.createQuery(hql).setParameter(1, userId).getResultList();
     }
 

@@ -1,11 +1,9 @@
 package com.concretepage.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "reviews")
 public class Review {
     private int id;
     private Integer userId;

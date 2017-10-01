@@ -31,8 +31,8 @@ public class ReviewController{
         return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("reviews/{userId}")
-    public ResponseEntity<List<Review>> getAllEstatesByUserId(@PathVariable("userId") Integer userId) {
+    @GetMapping("reviews/{estateId}")
+    public ResponseEntity<List<Review>> getAllEstatesByUserId(@PathVariable("estateId") Integer userId) {
         List<Review> list = reviewService.getAllByUserID(userId);
         return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
     }
