@@ -44,14 +44,16 @@ public class EstateController {
     }
 
     @PostMapping("estate")
-    public ResponseEntity<Void> addEstate(@RequestBody Estate estate, UriComponentsBuilder builder) {
+    public ResponseEntity<java.net.URI> addEstate(@RequestBody Estate estate, UriComponentsBuilder builder) {
         boolean flag = estateService.addEstate(estate);
         if (!flag) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+            return new ResponseEntity<java.net.URI>(HttpStatus.CONFLICT);
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/estate/{id}").buildAndExpand(estate.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        java.net.URI loc = builder.path("/estate/{id}").buildAndExpand(estate.getId()).toUri();
+        headers.setLocation(loc);
+        System.out.println(estate.getId());
+        return new ResponseEntity<java.net.URI>(loc, HttpStatus.CREATED);
     }
 
     @PutMapping("estate")
