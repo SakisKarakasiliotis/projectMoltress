@@ -20,6 +20,12 @@ public class AssetService implements IAssetService {
     }
 
     @Override
+    public List<Asset> getAssetByEstateId(int id, String type) {
+        return assetDAO.getAssetByEstateId(id, type);
+    }
+
+
+    @Override
     public List<Asset> getAllAssets() {
         return assetDAO.getAllAssets();
     }

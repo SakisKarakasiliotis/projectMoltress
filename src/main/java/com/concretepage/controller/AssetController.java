@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.concretepage.service.IAssetService;
+
 @CrossOrigin(origins = "http://localhost:8090", maxAge = 3600)
 
 @Controller
@@ -36,6 +37,11 @@ public class AssetController {
     public ResponseEntity<Asset> getAssetById(@PathVariable("id") Integer id) {
         Asset asset = assetService.getAssetById(id);
         return new ResponseEntity<Asset>(asset, HttpStatus.OK);
+    }
+    @GetMapping("asset/{id}/{type}")
+    public ResponseEntity<List<Asset>> getAssetByEstateId(@PathVariable("id") Integer id,@PathVariable("type") String type) {
+        List<Asset> list  = assetService.getAssetByEstateId(id, type);
+        return new ResponseEntity<List<Asset>>(list, HttpStatus.OK);
     }
 
     @GetMapping("assets")
@@ -67,9 +73,9 @@ public class AssetController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("upload")
+    @PostMapping("upload/{type}/{id}")
     @ResponseBody
-    public ResponseEntity<String> uploadFile( @RequestParam("file") MultipartFile uploadfile){
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile uploadfile, @PathVariable("type") String type, @PathVariable("id") Integer id) {
         logger.debug("Single file upload!");
 
         if (uploadfile.isEmpty()) {
@@ -78,17 +84,23 @@ public class AssetController {
 
         try {
 
-            saveUploadedFiles(Arrays.asList(uploadfile));
+            saveUploadedFiles(Arrays.asList(uploadfile), type, id);
 
         } catch (IOException e) {
             System.out.println(e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        Asset a = new Asset();
+        a.setItemId(id);
+        a.setName(uploadfile.getOriginalFilename());
+        a.setType(type);
+        a.setUri(uploadfile.getOriginalFilename());
+        assetService.addAsset(a);
         return new ResponseEntity("Successfully uploaded - " +
                 uploadfile.getOriginalFilename(), HttpStatus.OK);
     }
 
-    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
+    private void saveUploadedFiles(List<MultipartFile> files, String type, Integer id) throws IOException {
 
         for (MultipartFile file : files) {
 
@@ -99,7 +111,7 @@ public class AssetController {
             byte[] bytes = file.getBytes();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER  + file.getOriginalFilename());
             System.out.println(path);
             Files.write(path, bytes);
 

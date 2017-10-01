@@ -54,7 +54,7 @@ public class Asset {
     }
 
     @Basic
-    @Column(name = "itemID", nullable = true)
+    @Column(name = "item_ID", nullable = true)
     public Integer getItemId() {
         return itemId;
     }

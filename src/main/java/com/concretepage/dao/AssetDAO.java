@@ -29,6 +29,13 @@ public class AssetDAO implements IAssetDAO {
     }
 
     @Override
+    public List<Asset> getAssetByEstateId(int id, String type){
+        String hql = "FROM Asset as ast WHERE ast.itemId = ? AND ast.type = ?";
+        return (List<Asset>) entityManager.createQuery(hql).setParameter(1, id).setParameter(2, type).getResultList();
+    }
+
+
+    @Override
     public void addAsset(Asset asset) {
         entityManager.persist(asset);
     }

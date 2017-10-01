@@ -18,7 +18,7 @@
             <column name="name" sql-type="varchar(100)" length="100" not-null="true"/>
         </property>
         <property name="itemId">
-            <column name="itemID" sql-type="int(11)" not-null="true"/>
+            <column name="item_ID" sql-type="int(11)" not-null="true"/>
         </property>
         <property name="description">
             <column name="description" sql-type="longtext" not-null="true"/>
