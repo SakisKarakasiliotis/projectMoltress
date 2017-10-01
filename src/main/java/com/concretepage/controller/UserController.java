@@ -1,5 +1,6 @@
 package com.concretepage.controller;
 
+
 import java.util.List;
 
 import com.concretepage.entity.User;
@@ -23,7 +24,9 @@ import com.concretepage.service.IReviewService;
 public class UserController {
     @Autowired
     private IUserService userService;
+    @Autowired
     private IEstateService estateService;
+    @Autowired
     private IReviewService reviewService;
 
     @GetMapping("user/{id}")
@@ -75,16 +78,20 @@ public class UserController {
 
     }
 
-    @GetMapping("user/recomend/{id}")
+    @GetMapping("user/recommend/{id}")
     public ResponseEntity<Estate> recomendEstate(@PathVariable("id") Integer id) {
+        System.out.println("In reccomend "+id);
         List<User> users = userService.getAllUsers();
+
         Integer totalEstates = estateService.getCount();
+        System.out.println("totalEstates "+totalEstates);
 
         Double[][] ratingsVectors = new Double[users.size()][totalEstates];
 
         Double avg = reviewService.getAverageRating();
+        avg = (double)Math.round(avg * 100d) / 100d;
+        System.out.println("avg "+avg);
        // Double avg = 0.0;//should have a value but i need to know if value was 0 or not
-
         for (User usr : users) {
             int usrId = usr.getId();
             List<Review> reviews = reviewService.getAllByUserID(usrId); //needs to be implemented
@@ -92,11 +99,11 @@ public class UserController {
             for (int i = 0; i < totalEstates; i++) {
                 for (Review r : reviews) {
                     if (r.getEstateId() == i) {
-                        ratingsVectors[usrId][i] = r.getRating() + avg;
+                        ratingsVectors[usrId-1][i] = r.getRating() + avg;
                     }
                 }
-                if (ratingsVectors[usrId][i] == null) {
-                    ratingsVectors[usrId][i] = avg;
+                if (ratingsVectors[usrId-1][i] == null) {
+                    ratingsVectors[usrId-1][i] = avg;
                 }
             }
         }
@@ -104,7 +111,7 @@ public class UserController {
         //we have to cosine similarity the shit out of this
 
         for (int i = 0; i < users.size(); i++) {
-            if (i == id) {
+            if (i == id-1) {
                 continue;
             }
             double similarity;
@@ -112,21 +119,28 @@ public class UserController {
             double normA = 0.0;
             double normB = 0.0;
             for (int j = 0; j < totalEstates; j++) {
-                dotProduct += ratingsVectors[id][j] * ratingsVectors[i][j];
-                normA += Math.pow(ratingsVectors[id][j], 2);
+                dotProduct += ratingsVectors[id-1][j] * ratingsVectors[i][j];
+                normA += Math.pow(ratingsVectors[id-1][j], 2);
                 normB += Math.pow(ratingsVectors[i][j], 2);
             }
             similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-            if (similarity > 0.7) {
+            if (java.lang.Double.compare(similarity , 0.7) > 0 ) {
                 for (int k = 0; k < totalEstates; k++) {
-                    if (ratingsVectors[i][k]-avg > 6 && ratingsVectors[id][k]-avg == 0) {
+                    System.out.println(ratingsVectors[i][k]-avg);
+                    System.out.println(ratingsVectors[id-1][k]-avg == 0);
+                    System.out.println(avg);
+                    if (ratingsVectors[i][k]-avg > 3 && ratingsVectors[id-1][k]-avg == 0) {
                         return new ResponseEntity<Estate>(estateService.getEstateById(k), HttpStatus.OK);
                     }
                 }
             }
+            System.out.println("-------------------------------");
+            System.out.println("Similarity for "+(i+1)+" is: "+similarity);
+            System.out.println(java.lang.Double.compare(similarity , 0.7));
+            System.out.println("-------------------------------");
         }
 
 
-        return new ResponseEntity<Estate>(estateService.getEstateById(totalEstates - 1), HttpStatus.OK);
+        return new ResponseEntity<Estate>(estateService.getEstateById(6171), HttpStatus.OK);
     }
 }

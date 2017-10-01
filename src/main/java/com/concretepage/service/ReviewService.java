@@ -47,8 +47,8 @@ public class ReviewService implements IReviewService {
 
     @Override
     public Double getAverageRating() {
-        System.out.println(reviewDAO.getAverageRating());
-        return 0.0;
+        return reviewDAO.getAverageRating();
+
     }
 
 }

@@ -49,11 +49,9 @@ public class EstateDAO implements IEstateDAO {
     @Override
     public void updateEstate(Estate estate) {
         Estate estt = getEstateById(estate.getId());
+
         if (estate.getOwnerId() != null) {
             estt.setOwnerId(estate.getOwnerId());
-        }
-        if (estate.getSize() != null) {
-            estt.setSize(estate.getSize());
         }
         if (estate.getSize() != null) {
             estt.setSize(estate.getSize());
@@ -70,6 +68,54 @@ public class EstateDAO implements IEstateDAO {
         if (estate.getCity() != null) {
             estt.setCity(estate.getCity());
         }
+        if (estate.getType() != null) {
+            estt.setType(estate.getType());
+        }
+        if (estate.getBeds() != null) {
+            estt.setBeds(estate.getBeds());
+        }
+        if (estate.getBeds() != null) {
+            estt.setBeds(estate.getBeds());
+        }
+        if (estate.getRooms() != null) {
+            estt.setRooms(estate.getRooms());
+        }
+        if (estate.getBathrooms() != null) {
+            estt.setBathrooms(estate.getBathrooms());
+        }
+        if (estate.getSittingRoom() != null) {
+            estt.setSittingRoom(estate.getSittingRoom());
+        }
+        if (estate.getAbout() != null) {
+            estt.setAbout(estate.getAbout());
+        }
+        if (estate.getWifi() != null) {
+            estt.setWifi(estate.getWifi());
+        }
+        if (estate.getAirCondition() != null) {
+            estt.setAirCondition(estate.getAirCondition());
+        }
+        if (estate.getHeating() != null) {
+            estt.setHeating(estate.getHeating());
+        }
+        if (estate.getKitchen() != null) {
+            estt.setKitchen(estate.getKitchen());
+        }
+        if (estate.getParking() != null) {
+            estt.setParking(estate.getParking());
+        }
+        if (estate.getFloor() != null) {
+            estt.setFloor(estate.getFloor());
+        }
+        if (estate.getStoreys() != null) {
+            estt.setStoreys(estate.getStoreys());
+        }
+        if (estate.getElevator() != null) {
+            estt.setElevator(estate.getElevator());
+        }
+        if (estate.getTitle() != null) {
+            estt.setTitle(estate.getTitle());
+        }
         entityManager.flush();
     }
 
@@ -80,7 +126,7 @@ public class EstateDAO implements IEstateDAO {
 
     //here was the exists method may it rests in peace...
     @Override
-    public List<Estate> searchEstatePaged(Integer page, String place, String startDate, String endDate,String type,Double price,Byte wifi,Byte heating,Byte aircondition,Byte kitchen,Byte parking,Byte elevator) {
+    public List<Estate> searchEstatePaged(Integer page, String place, String startDate, String endDate, String type, Double price, Byte wifi, Byte heating, Byte aircondition, Byte kitchen, Byte parking, Byte elevator) {
         java.sql.Date sqlStartDate;
         java.sql.Date sqlEndDate;
         Integer pageSize = 10;
@@ -96,7 +142,7 @@ public class EstateDAO implements IEstateDAO {
         }
         hql += "AND (avl.startDate <= ?)";
 
-        if (startDate != null && !startDate.equals("")  ) {
+        if (startDate != null && !startDate.equals("")) {
             java.util.Date utilDate = new java.util.Date();
             try {
                 utilDate = formatter.parse(startDate);
@@ -110,7 +156,7 @@ public class EstateDAO implements IEstateDAO {
         }
         hql += "AND (avl.endDate >= ?)";
 
-        if (endDate != null && !endDate.equals("") ) {
+        if (endDate != null && !endDate.equals("")) {
             java.util.Date utilDate = new java.util.Date();
             try {
                 utilDate = formatter.parse(endDate);
@@ -124,42 +170,42 @@ public class EstateDAO implements IEstateDAO {
         }
         if (!type.equals("any") && !type.equals("") && type != null) {
             hql += "AND (estt.type = ?)";
-        }else{
+        } else {
             hql += "AND (estt.type = ? OR 1=1 )";
         }
         if (price != 0.0f) {
             hql += "AND (avl.price <= ?)";
-        }else{
+        } else {
             hql += "AND (avl.price = ? OR 1=1 )";
         }
         if (wifi == 1) {
             hql += "AND (estt.wifi = ?)";
-        }else{
+        } else {
             hql += "AND (estt.wifi = ? OR 1=1 )";
         }
         if (heating == 1) {
             hql += "AND (estt.heating = ?)";
-        }else{
+        } else {
             hql += "AND (estt.heating = ? OR 1=1 )";
         }
         if (aircondition == 1) {
             hql += "AND (estt.airCondition = ?)";
-        }else{
+        } else {
             hql += "AND (estt.airCondition = ? OR 1=1 )";
         }
         if (kitchen == 1) {
             hql += "AND (estt.kitchen = ?)";
-        }else{
+        } else {
             hql += "AND (estt.kitchen = ? OR 1=1 )";
         }
         if (parking == 1) {
             hql += "AND (estt.parking = ?)";
-        }else{
+        } else {
             hql += "AND (estt.parking = ? OR 1=1 )";
         }
         if (elevator == 1) {
             hql += "AND (estt.elevator = ?)";
-        }else{
+        } else {
             hql += "AND (estt.elevator = ? OR 1=1 )";
         }
 
@@ -182,13 +228,13 @@ public class EstateDAO implements IEstateDAO {
     }
 
     @Override
-    public int getCount(){
+    public int getCount() {
         String hql = "FROM Estate as est";
         return entityManager.createQuery(hql).getResultList().size();
     }
 
     @Override
-    public List<String> getEstateTypes(){
+    public List<String> getEstateTypes() {
         String hql = "SELECT DISTINCT(est.type) FROM Estate as est";
         return entityManager.createQuery(hql).getResultList();
 

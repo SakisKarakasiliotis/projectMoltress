@@ -70,23 +70,7 @@ public class EstateController {
 
     @GetMapping("estate/search/{page}/{place}/{startdate}/{enddate}/{type}/{price}/{wifi}/{heating}/{aircondition}/{kitchen}/{parking}/{elevator}")
     public ResponseEntity<List<Estate>> searchEstatesPaged(@PathVariable("page") Integer page, @PathVariable("place") String place, @PathVariable("startdate") String startDate, @PathVariable("enddate") String endDate, @PathVariable("type") String type, @PathVariable("price") Double price, @PathVariable("wifi") Byte wifi, @PathVariable("heating") Byte heating, @PathVariable("aircondition") Byte aircondition, @PathVariable("kitchen") Byte kitchen, @PathVariable("parking") Byte parking, @PathVariable("elevator") Byte elevator) {
-//        SimpleDateFormat start = new SimpleDateFormat("yyyy-MM-dd");
-//        java.util.Date date = null;
-//        try {
-//            date = start.parse(startDate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-//        SimpleDateFormat end = new SimpleDateFormat("yyyy-MM-dd");
-//        java.util.Date date2 = null;
-//        try {
-//            date2 = end.parse(endDate);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        java.sql.Date sqlEndDate = new java.sql.Date(date2.getTime());
-//        bookingService.bookingExists(sqlStartDate, sqlEndDate);
+
         List<Estate> list = estateService.searchEstatePaged(page, place, startDate, endDate, type, price, wifi, heating, aircondition, kitchen, parking, elevator);
         return new ResponseEntity<List<Estate>>(list, HttpStatus.OK);
     }
