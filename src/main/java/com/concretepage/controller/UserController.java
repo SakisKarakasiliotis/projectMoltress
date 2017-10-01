@@ -126,21 +126,16 @@ public class UserController {
             similarity = dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
             if (java.lang.Double.compare(similarity , 0.7) > 0 ) {
                 for (int k = 0; k < totalEstates; k++) {
-                    System.out.println(ratingsVectors[i][k]-avg);
-                    System.out.println(ratingsVectors[id-1][k]-avg == 0);
-                    System.out.println(avg);
+
                     if (ratingsVectors[i][k]-avg > 3 && ratingsVectors[id-1][k]-avg == 0) {
                         return new ResponseEntity<Estate>(estateService.getEstateById(k), HttpStatus.OK);
                     }
                 }
             }
-            System.out.println("-------------------------------");
-            System.out.println("Similarity for "+(i+1)+" is: "+similarity);
-            System.out.println(java.lang.Double.compare(similarity , 0.7));
-            System.out.println("-------------------------------");
+
         }
 
 
-        return new ResponseEntity<Estate>(estateService.getEstateById(6171), HttpStatus.OK);
+        return new ResponseEntity<Estate>(estateService.getEstateById(2), HttpStatus.OK);
     }
 }
