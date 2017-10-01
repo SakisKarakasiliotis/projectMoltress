@@ -8,19 +8,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.concretepage.service.IBookingService;
 import com.concretepage.service.IAvailabilityService;
 
+@CrossOrigin(origins = "http://localhost:8090", maxAge = 3600)
 @Controller
-@RequestMapping("/")
+@RequestMapping("/api")
 public class BookingController {
     @Autowired
     private IBookingService bookingService;
@@ -37,6 +32,11 @@ public class BookingController {
     @GetMapping("bookings")
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> list = bookingService.getAllBookings();
+        return new ResponseEntity<List<Booking>>(list, HttpStatus.OK);
+    }
+    @GetMapping("bookings/{id}")
+    public ResponseEntity<List<Booking>> getAllBookingsByUserId(@PathVariable("id") Integer id) {
+        List<Booking> list = bookingService.getAllBookingsByUserId(id);
         return new ResponseEntity<List<Booking>>(list, HttpStatus.OK);
     }
 
@@ -63,15 +63,15 @@ public class BookingController {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
     @PostMapping("booking/book")
-    public ResponseEntity<Void> bookAnEstate(@RequestBody Booking booking, UriComponentsBuilder builder){
-       if(bookingService.bookingExists( booking.getStartDate(),booking.getEndDate())) {
-           return new ResponseEntity<Void>(HttpStatus.CONFLICT); //TODO: error codes and response protocol
+    public ResponseEntity<String> bookAnEstate(@RequestBody Booking booking, UriComponentsBuilder builder){
+       if(bookingService.bookingExists( booking.getStartDate(),booking.getEndDate(), booking.getEstateId())) {
+           return new ResponseEntity<String>("SKATA",HttpStatus.CONFLICT); //TODO: error codes and response protocol
        }
        else if(!availabilityService.availabilityExists(booking.getEstateId(), booking.getStartDate(),booking.getEndDate())){
-           return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+           return new ResponseEntity<String>("SKATA2",HttpStatus.CONFLICT);
        }
        //create the booking entry and push it to DB and then return..
         bookingService.addBooking(booking);
-        return new ResponseEntity<Void>( HttpStatus.OK);
+        return new ResponseEntity<String>("POPA", HttpStatus.OK);
     }
 }

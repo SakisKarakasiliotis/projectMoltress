@@ -26,8 +26,13 @@ public class BookingService implements IBookingService {
     }
 
     @Override
+    public List<Booking> getAllBookingsByUserId(Integer id) {
+        return bookingDAO.getAllBookingsByUserId(id);
+    }
+
+    @Override
     public synchronized boolean addBooking(Booking booking) {
-        if (bookingDAO.bookingExists(booking.getStartDate(), booking.getEndDate())) {
+        if (bookingDAO.bookingExists(booking.getStartDate(), booking.getEndDate(), booking.getEstateId())) {
             return false;
         } else {
             bookingDAO.addBooking(booking);
@@ -46,8 +51,8 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public boolean bookingExists(Date start, Date end){
-        boolean x = bookingDAO.bookingExists(start,end);
+    public boolean bookingExists(Date start, Date end, Integer esId){
+        boolean x = bookingDAO.bookingExists(start,end, esId);
         System.out.println(x);
         return x;
    }

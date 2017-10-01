@@ -7,6 +7,8 @@ import com.concretepage.entity.Booking;
 public interface IBookingService {
     List<Booking> getAllBookings();
 
+    List<Booking> getAllBookingsByUserId(Integer id);
+
     Booking getBookingById(int assetId);
 
     boolean addBooking(Booking booking);
@@ -15,5 +17,5 @@ public interface IBookingService {
 
     void deleteBooking(int bookingId);
 
-    boolean bookingExists(Date start, Date end);
+    boolean bookingExists(Date start, Date end, Integer esId);
 }

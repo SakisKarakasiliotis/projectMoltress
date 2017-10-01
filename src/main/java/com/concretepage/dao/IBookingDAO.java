@@ -7,6 +7,7 @@ import com.concretepage.entity.Booking;
 
 public interface IBookingDAO {
     List<Booking> getAllBookings();
+    List<Booking> getAllBookingsByUserId(Integer id);
 
     Booking getBookingById(int bookingId);
 
@@ -16,7 +17,7 @@ public interface IBookingDAO {
 
     void deleteBooking(int bookingId);
 
-    boolean bookingExists(Date start, Date end);
+    boolean bookingExists(Date start, Date end, Integer estateId);
 
 
 }
